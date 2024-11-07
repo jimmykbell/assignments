@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Helper</title>
+    <title>Martial Arts Tournament Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -77,11 +77,15 @@
     <div id="form-container">
         <!-- Link Buttons -->
         <div class="link-buttons">
-            <a href="https://jimmykbell.github.io/Ringapp/" target="_blank">View Rings</a>
+            <a href="https://your-link-to-view-rings.com" target="_blank">View Rings</a>
             <a href="https://your-link-to-view-data.com" target="_blank">View Data</a>
         </div>
 
-        <div id="question-container">
+        <!-- Add Ring Button -->
+        <button id="add-ring-button" onclick="openAddRingForm()">Add Ring</button>
+
+        <!-- Add Ring Form -->
+        <div id="question-container" style="display: none;">
             <!-- Question 1: Packet Number -->
             <div id="packet-number" class="question">
                 <label for="packet-number-input">Packet Number</label>
@@ -243,7 +247,6 @@
                     break;
             }
 
-            // Move to the next question
             currentQuestionIndex++;
 
             if (currentQuestionIndex >= questions.length) {
@@ -282,11 +285,16 @@
             // You can save this data to Firebase or perform other actions here
 
             alert("Form submitted successfully!");
+            // Hide the form after submission
+            document.getElementById('question-container').style.display = 'none';
         }
 
-        // Initialize the form
-        displayQuestion();
+        // Open the form when the Add Ring button is clicked
+        function openAddRingForm() {
+            document.getElementById('question-container').style.display = 'block';
+            currentQuestionIndex = 0;
+            displayQuestion();
+        }
     </script>
-
 </body>
 </html>
