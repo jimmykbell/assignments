@@ -5,26 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Martial Arts Tournament Data Entry</title>
     <style>
-        /* Your existing CSS would go here */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 16px;
+            margin: 10px 0;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button.active {
+            background-color: #28a745;
+        }
+
+        .question-button {
+            display: block;
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .question-button:hover {
+            background-color: #218838;
+        }
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step:first-child {
+            display: block;
+        }
+
+        input[type="tel"], input[type="number"] {
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .step h2 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .step input {
+            font-size: 1.2em;
+        }
+
+        #save-data button {
+            background-color: #28a745;
+            font-size: 18px;
+        }
+
+        @media (max-width: 600px) {
+            .popup-content {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            button, .question-button {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
-    <button id="addRingBtn">Add Ring</button>
+
+    <h1>Martial Arts Tournament</h1>
+
+    <!-- Main Buttons -->
+    <button onclick="openAddPacketPopup()">Add Packet</button>
+    <button onclick="window.location.href='viewRings.html'">View Rings</button>
+    <button onclick="window.location.href='viewPackets.html'">View Packets</button>
 
     <!-- Popup for entering data -->
-    <div id="popup" style="display: none;">
+    <div id="popup">
         <div class="popup-content">
-            <div id="packet-number" class="step" style="display: block;">
+            <!-- Step 1: Packet Number -->
+            <div id="packet-number" class="step">
                 <h2>Enter Packet Number</h2>
                 <input type="tel" id="packet-number-input" oninput="packetNumber = this.value;" maxlength="10" placeholder="Enter numeric value">
                 <button onclick="nextQuestion()">Next</button>
             </div>
-            <div id="champion-rec" class="step" style="display: none;">
+
+            <!-- Step 2: Champion or Rec -->
+            <div id="champion-rec" class="step">
                 <h2>Champion or Recreational?</h2>
                 <button class="question-button" data-value="Champion" onclick="selectChampionRec('Champion')">Champion</button>
                 <button class="question-button" data-value="Recreational" onclick="selectChampionRec('Recreational')">Recreational</button>
             </div>
-            <div id="rank-group" class="step" style="display: none;">
+
+            <!-- Step 3: Rank Group -->
+            <div id="rank-group" class="step">
                 <h2>Start Rank</h2>
                 <button class="question-button" data-value="White" onclick="selectRank('White')">White</button>
                 <button class="question-button" data-value="Orange" onclick="selectRank('Orange')">Orange</button>
@@ -36,7 +177,9 @@
                 <button class="question-button" data-value="Brown" onclick="selectRank('Brown')">Brown</button>
                 <button class="question-button" data-value="Red" onclick="selectRank('Red')">Red</button>
             </div>
-            <div id="end-rank-group" class="step" style="display: none;">
+
+            <!-- Step 4: End Rank -->
+            <div id="end-rank-group" class="step">
                 <h2>End Rank</h2>
                 <button class="question-button" data-value="White" onclick="selectEndRank('White')">White</button>
                 <button class="question-button" data-value="Orange" onclick="selectEndRank('Orange')">Orange</button>
@@ -48,7 +191,9 @@
                 <button class="question-button" data-value="Brown" onclick="selectEndRank('Brown')">Brown</button>
                 <button class="question-button" data-value="Red" onclick="selectEndRank('Red')">Red</button>
             </div>
-            <div id="age-group" class="step" style="display: none;">
+
+            <!-- Step 5: Age Group -->
+            <div id="age-group" class="step">
                 <h2>Age Group</h2>
                 <button class="question-button" data-value="8 and Under" onclick="selectAgeGroup('8 and Under')">8 and Under</button>
                 <button class="question-button" data-value="9-10" onclick="selectAgeGroup('9-10')">9-10</button>
@@ -61,133 +206,68 @@
                 <button class="question-button" data-value="50-59" onclick="selectAgeGroup('50-59')">50-59</button>
                 <button class="question-button" data-value="60+" onclick="selectAgeGroup('60+')">60+</button>
             </div>
-            <div id="gender" class="step" style="display: none;">
-                <h2>Gender</h2>
-                <button class="question-button" data-value="Male" onclick="selectGender('Male')">Male</button>
-                <button class="question-button" data-value="Female" onclick="selectGender('Female')">Female</button>
+
+            <!-- Step 6: Save -->
+            <div id="save-data" class="step">
+                <h2>Save Data?</h2>
+                <button onclick="saveData()">Save</button>
             </div>
-            <div id="body-count" class="step" style="display: none;">
-                <h2>Body Count</h2>
-                <input type="number" id="body-count-input" oninput="selectedBodyCount = this.value;" placeholder="Enter numeric value">
-                <button onclick="nextQuestion()">Next</button>
-            </div>
-            <div id="assigned-ring" class="step" style="display: none;">
-                <h2>Assigned Ring</h2>
-                <input type="number" id="assigned-ring-input" oninput="selectedRing = this.value;" placeholder="Enter numeric value">
-                <button onclick="nextQuestion()">Next</button>
-            </div>
-            <div id="save-data" class="step" style="display: none;">
-                <button onclick="saveData()">Save Data</button>
-            </div>
-            <button onclick="closePopup()">Close</button>
         </div>
     </div>
 
     <script>
-        // Initialize variables to hold the answers
-        let selectedRank = null;
-        let selectedEndRank = null;
-        let selectedAgeGroup = null;
-        let selectedGender = null;
-        let selectedBodyCount = null;
-        let selectedRing = null;
-        let selectedChampionRec = null;
-        let packetNumber = null;
+        // Function to show the popup
+        function openAddPacketPopup() {
+            document.getElementById("popup").style.display = "flex";
+        }
 
-        // Handle the progression of questions
+        let packetNumber;
+        let championRec;
+        let startRank;
+        let endRank;
+        let ageGroup;
+        let currentStep = 0;
+
+        // Switch to next question
         function nextQuestion() {
-            let currentStep = document.querySelector('.step:visible');
-            let nextStep = currentStep.nextElementSibling;
-            if (nextStep) {
-                currentStep.style.display = 'none';
-                nextStep.style.display = 'block';
-            } else {
-                saveData(); // Proceed to save data
+            const steps = document.querySelectorAll('.step');
+            steps[currentStep].style.display = "none";
+            currentStep++;
+            if (currentStep < steps.length) {
+                steps[currentStep].style.display = "block";
             }
         }
 
-        // Remove 'active' class from all buttons
-        function removeActiveClass() {
-            const buttons = document.querySelectorAll('.question-button');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
-        }
-
-        // Select Champion or Rec
+        // Set champion or recreational
         function selectChampionRec(value) {
-            removeActiveClass();
-            selectedChampionRec = value;
-            document.querySelector('.question-button[data-value="' + value + '"]').classList.add('active');
+            championRec = value;
             nextQuestion();
         }
 
-        // Select Rank
+        // Select rank
         function selectRank(value) {
-            removeActiveClass();
-            selectedRank = value;
-            document.querySelector('.question-button[data-value="' + value + '"]').classList.add('active');
+            startRank = value;
+            nextQuestion();
         }
 
-        // Select End Rank
+        // Select end rank
         function selectEndRank(value) {
-            removeActiveClass();
-            selectedEndRank = value;
-            document.querySelector('.question-button[data-value="' + value + '"]').classList.add('active');
+            endRank = value;
             nextQuestion();
         }
 
-        // Select Age Group
+        // Select age group
         function selectAgeGroup(value) {
-            removeActiveClass();
-            selectedAgeGroup = value;
-            document.querySelector('.question-button[data-value="' + value + '"]').classList.add('active');
+            ageGroup = value;
             nextQuestion();
         }
 
-        // Select Gender
-        function selectGender(value) {
-            removeActiveClass();
-            selectedGender = value;
-            document.querySelector('.question-button[data-value="' + value + '"]').classList.add('active');
-            nextQuestion();
-        }
-
-        // Handle numeric input for body count
-        function handleNumericInput(event) {
-            const value = event.target.value;
-            if (value) {
-                nextQuestion();
-            }
-        }
-
-        // Save the data
+        // Save data (you can modify this to save data wherever needed)
         function saveData() {
-            console.log('Data saved:', {
-                packetNumber,
-                selectedChampionRec,
-                selectedRank,
-                selectedEndRank,
-                selectedAgeGroup,
-                selectedGender,
-                selectedBodyCount,
-                selectedRing,
-                timestamp: new Date().toISOString()
-            });
-            alert('Data Saved');
-            closePopup();
+            alert("Data saved!");
+            // Close the popup
+            document.getElementById("popup").style.display = "none";
         }
-
-        // Close popup
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-
-        // Open the popup
-        document.getElementById('addRingBtn').addEventListener('click', function() {
-            document.getElementById('popup').style.display = 'flex';
-            document.getElementById('packet-number').style.display = 'block';
-        });
     </script>
 </body>
 </html>
