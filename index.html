@@ -2,52 +2,291 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Tournament Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        #form-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            display: none;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #category button, #gender button {
+            width: 48%;
+            margin: 5px 1%;
+        }
+        #category button.selected, #gender button.selected {
+            background-color: #4CAF50;
+        }
+        .link-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .link-buttons a {
+            width: 48%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            display: block;
+        }
+        .link-buttons a:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <h1>Tournament Dashboard</h1>
-    </header>
 
-    <!-- Main Content Section -->
-    <main>
-        <!-- View Data Section -->
-        <section class="section-button">
-            <button onclick="viewData()">View Tournament Data</button>
-        </section>
+    <div id="form-container">
+        <!-- Link Buttons -->
+        <div class="link-buttons">
+            <a href="https://jimmykbell.github.io/Ringapp/" target="_blank">View Rings</a>
+            <a href="https://your-link-to-view-data.com" target="_blank">View Data</a>
+        </div>
 
-        <!-- Add Data Section -->
-        <section class="section-button">
-            <button onclick="showPopup()">Add New Data</button>
-        </section>
+        <div id="question-container">
+            <!-- Question 1: Packet Number -->
+            <div id="packet-number" class="question">
+                <label for="packet-number-input">Packet Number</label>
+                <input type="number" id="packet-number-input" placeholder="Enter packet number" />
+                <button onclick="nextQuestion()">Next</button>
+            </div>
 
-        <!-- External Link Button Section -->
-<section class="section-button">
-    <button onclick="window.location.href='https://jimmykbell.github.io/Ringapp/';">Ring Status</button>
-</section>
+            <!-- Question 2: Champion or Rec -->
+            <div id="category" class="question">
+                <label>Category</label>
+                <div>
+                    <button id="champion" onclick="selectCategory('Champion')">Champion</button>
+                    <button id="recreational" onclick="selectCategory('Recreational')">Recreational</button>
+                </div>
+                <button onclick="nextQuestion()">Next</button>
+            </div>
 
+            <!-- Question 3: Rank Group -->
+            <div id="rank-group" class="question">
+                <label for="rank-group-select">Rank Group</label>
+                <select id="rank-group-select">
+                    <option value="White">White</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Camo">Camo</option>
+                    <option value="Green">Green</option>
+                    <option value="Purple">Purple</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Red">Red</option>
+                    <option value="1BR">1BR</option>
+                    <option value="1BD">1BD</option>
+                    <option value="2BR">2BR</option>
+                    <option value="2BD">2BD</option>
+                    <option value="3BD">3BD</option>
+                    <option value="4BD">4BD</option>
+                    <option value="5BD">5BD</option>
+                </select>
+                <button onclick="nextQuestion()">Next</button>
+            </div>
 
-        <!-- Real-Time Data Display Section -->
-        <section id="real-time-data" class="data-section">
-            <!-- JavaScript will populate this section with data from Firebase -->
-        </section>
-    </main>
+            <!-- Question 4: Age Group -->
+            <div id="age-group" class="question">
+                <label for="age-group-select">Age Group</label>
+                <select id="age-group-select">
+                    <option value="8 and Under">8 and Under</option>
+                    <option value="9-10">9-10</option>
+                    <option value="11-12">11-12</option>
+                    <option value="13-14">13-14</option>
+                    <option value="15-17">15-17</option>
+                    <option value="18-29">18-29</option>
+                    <option value="30-39">30-39</option>
+                    <option value="40-49">40-49</option>
+                    <option value="50-59">50-59</option>
+                    <option value="60+">60+</option>
+                </select>
+                <button onclick="nextQuestion()">Next</button>
+            </div>
 
-    <!-- Popup Component for Data Entry (Initially Hidden) -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <h3>Enter Data</h3>
-            <input type="text" id="popup-input" placeholder="Enter response here">
-            <button onclick="nextQuestion()">Next</button>
-            <button onclick="closePopup()">Cancel</button>
+            <!-- Question 5: Gender -->
+            <div id="gender" class="question">
+                <label>Gender</label>
+                <div>
+                    <button id="male" onclick="selectGender('Male')">Male</button>
+                    <button id="female" onclick="selectGender('Female')">Female</button>
+                </div>
+                <button onclick="nextQuestion()">Next</button>
+            </div>
+
+            <!-- Question 6: Body Count -->
+            <div id="body-count" class="question">
+                <label for="body-count-input">Body Count</label>
+                <input type="number" id="body-count-input" placeholder="Enter body count" />
+                <button onclick="nextQuestion()">Next</button>
+            </div>
+
+            <!-- Question 7: Assigned Ring -->
+            <div id="assigned-ring" class="question">
+                <label for="assigned-ring-input">Assigned Ring</label>
+                <input type="number" id="assigned-ring-input" placeholder="Enter assigned ring" />
+                <button onclick="submitData()">Submit</button>
+            </div>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="firebase-config.js"></script>
-    <script src="app.js"></script>
+    <script>
+        // Initializing the userData object to store answers
+        let userData = {};
+        let currentQuestionIndex = 0;
+
+        const questions = [
+            'packet-number', // Packet Number
+            'category', // Champion or Rec
+            'rank-group', // Rank Group
+            'age-group', // Age Group
+            'gender', // Gender
+            'body-count', // Body Count
+            'assigned-ring' // Assigned Ring
+        ];
+
+        // Move to the next question or save data when the last question is reached
+        function nextQuestion() {
+            switch (questions[currentQuestionIndex]) {
+                case 'packet-number':
+                    const packetNumber = document.getElementById('packet-number-input').value;
+                    if (!packetNumber) {
+                        alert("Please enter a packet number.");
+                        return;
+                    }
+                    userData["Packet Number"] = packetNumber;
+                    break;
+                case 'category':
+                    const category = document.querySelector('button.selected');
+                    if (!category) {
+                        alert("Please select a category (Champion or Recreational).");
+                        return;
+                    }
+                    userData["Category"] = category.textContent;
+                    break;
+                case 'rank-group':
+                    const rankGroup = document.getElementById('rank-group-select').value;
+                    if (!rankGroup) {
+                        alert("Please select a rank group.");
+                        return;
+                    }
+                    userData["Rank Group"] = rankGroup;
+                    break;
+                case 'age-group':
+                    const ageGroup = document.getElementById('age-group-select').value;
+                    if (!ageGroup) {
+                        alert("Please select an age group.");
+                        return;
+                    }
+                    userData["Age Group"] = ageGroup;
+                    break;
+                case 'gender':
+                    const gender = document.querySelector('button.selected');
+                    if (!gender) {
+                        alert("Please select a gender.");
+                        return;
+                    }
+                    userData["Gender"] = gender.textContent;
+                    break;
+                case 'body-count':
+                    const bodyCount = document.getElementById('body-count-input').value;
+                    if (!bodyCount) {
+                        alert("Please enter a body count.");
+                        return;
+                    }
+                    userData["Body Count"] = bodyCount;
+                    break;
+                case 'assigned-ring':
+                    const assignedRing = document.getElementById('assigned-ring-input').value;
+                    if (!assignedRing) {
+                        alert("Please enter an assigned ring.");
+                        return;
+                    }
+                    userData["Assigned Ring"] = assignedRing;
+                    break;
+            }
+
+            // Move to the next question
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex >= questions.length) {
+                submitData();
+            } else {
+                displayQuestion();
+            }
+        }
+
+        // Display the current question
+        function displayQuestion() {
+            // Hide all questions
+            document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
+            
+            // Show the current question
+            document.getElementById(questions[currentQuestionIndex]).style.display = 'block';
+        }
+
+        // Select Champion or Rec
+        function selectCategory(category) {
+            document.querySelectorAll('#category button').forEach(btn => btn.classList.remove('selected'));
+            document.getElementById(category.toLowerCase()).classList.add('selected');
+        }
+
+        // Select Male or Female
+        function selectGender(gender) {
+            document.querySelectorAll('#gender button').forEach(btn => btn.classList.remove('selected'));
+            document.getElementById(gender.toLowerCase()).classList.add('selected');
+        }
+
+        // Submit the data (final step)
+        function submitData() {
+            userData["Timestamp"] = new Date().toLocaleString();
+            console.log("Data Submitted:", userData);
+
+            // You can save this data to Firebase or perform other actions here
+
+            alert("Form submitted successfully!");
+        }
+
+        // Initialize the form
+        displayQuestion();
+    </script>
+
 </body>
 </html>
