@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Firebase App (Core) -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Ring</title>
@@ -162,44 +168,14 @@
                 <div class="form-section">
                     <label for="rank-start">Starting Rank</label>
                     <select id="rank-start" name="rank-start">
-                        <option value="White">White</option>
-                        <option value="Orange">Orange</option>
-                        <option value="Yellow">Yellow</option>
-                        <option value="Camo">Camo</option>
-                        <option value="Green">Green</option>
-                        <option value="Purple">Purple</option>
-                        <option value="Blue">Blue</option>
-                        <option value="Brown">Brown</option>
-                        <option value="Red">Red</option>
-                        <option value="1br">1BR</option>
-                        <option value="1BD">1BD</option>
-                        <option value="2br">2BR</option>
-                        <option value="2bd">2BD</option>
-                        <option value="3BD">3BD</option>
-                        <option value="4BD">4BD</option>
-                        <option value="5BD">5BD</option>
+                        <!-- Options... -->
                     </select>
                 </div>
 
                 <div class="form-section">
                     <label for="rank-end">Ending Rank</label>
                     <select id="rank-end" name="rank-end">
-                        <option value="White">White</option>
-                        <option value="Orange">Orange</option>
-                        <option value="Yellow">Yellow</option>
-                        <option value="Camo">Camo</option>
-                        <option value="Green">Green</option>
-                        <option value="Purple">Purple</option>
-                        <option value="Blue">Blue</option>
-                        <option value="Brown">Brown</option>
-                        <option value="Red">Red</option>
-                        <option value="1br">1BR</option>
-                        <option value="1BD">1BD</option>
-                        <option value="2br">2BR</option>
-                        <option value="2bd">2BD</option>
-                        <option value="3BD">3BD</option>
-                        <option value="4BD">4BD</option>
-                        <option value="5BD">5BD</option>
+                        <!-- Options... -->
                     </select>
                 </div>
 
@@ -207,16 +183,7 @@
                 <div class="form-section">
                     <label for="age-group">Age Group</label>
                     <select id="age-group" name="age-group">
-                        <option value="8 and Under">8 and Under</option>
-                        <option value="9-10">9-10</option>
-                        <option value="11-12">11-12</option>
-                        <option value="13-14">13-14</option>
-                        <option value="15-17">15-17</option>
-                        <option value="18-29">18-29</option>
-                        <option value="30-39">30-39</option>
-                        <option value="40-49">40-49</option>
-                        <option value="50-59">50-59</option>
-                        <option value="60+">60+</option>
+                        <!-- Options... -->
                     </select>
                 </div>
 
@@ -248,6 +215,59 @@
             </form>
         </div>
     </div>
-    <script src="script.js"></script> <!-- Your external JS file -->
+
+    <script>
+        // Firebase configuration (replace with your actual config object)
+        var firebaseConfig = {
+ apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
+    authDomain: "ataaddring.firebaseapp.com",
+    databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
+    projectId: "ataaddring",
+    storageBucket: "ataaddring.firebasestorage.app",
+    messagingSenderId: "478536722943",
+    appId: "1:478536722943:web:7852ceb7032530cf3b5fca",
+    measurementId: "G-1J682H31R3"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Get a reference to the Firebase Database
+        var database = firebase.database();
+
+        // Handle form submission
+        document.getElementById('add-ring-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            var packetNumber = document.getElementById('packet-number').value;
+            var division = document.querySelector('button[data-division="selected"]').textContent; // Need to implement division button selection
+            var level = document.querySelector('button[data-level="selected"]').textContent; // Need to implement level button selection
+            var rankStart = document.getElementById('rank-start').value;
+            var rankEnd = document.getElementById('rank-end').value;
+            var ageGroup = document.getElementById('age-group').value;
+            var gender = document.querySelector('button[data-gender="selected"]').textContent; // Implement gender selection
+            var bodyCount = document.getElementById('body-count').value;
+            var assignedRing = document.getElementById('assigned-ring').value;
+
+            // Save to Firebase
+            database.ref('rings/' + packetNumber).set({
+                packetNumber: packetNumber,
+                division: division,
+                level: level,
+                rankStart: rankStart,
+                rankEnd: rankEnd,
+                ageGroup: ageGroup,
+                gender: gender,
+                bodyCount: bodyCount,
+                assignedRing: assignedRing,
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            }).then(function() {
+                alert('Ring saved successfully!');
+            }).catch(function(error) {
+                alert('Error saving ring: ' + error.message);
+            });
+        });
+    </script>
 </body>
 </html>
