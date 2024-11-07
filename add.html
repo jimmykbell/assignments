@@ -136,10 +136,10 @@
                 <!-- Packet number -->
                 <div class="form-section">
                    <label for="packet-number">Packet Number:</label>
-<input type="tel" id="packet-number" name="packet-number" pattern="[0-9]*" placeholder="Enter packet number" required>
+                   <input type="number" id="packet-number" name="packet-number" placeholder="Enter packet number" required>
                 </div>
 
-                <!-- Champion or Rec -->
+                <!-- Division (Champion or Rec) -->
                 <div class="form-section">
                     <label>Division</label>
                     <div class="button-group">
@@ -178,7 +178,6 @@
                         <option value="3BD">3BD</option>
                         <option value="4BD">4BD</option>
                         <option value="5BD">5BD</option>
-                        <!-- Add other options here -->
                     </select>
                 </div>
 
@@ -201,7 +200,6 @@
                         <option value="3BD">3BD</option>
                         <option value="4BD">4BD</option>
                         <option value="5BD">5BD</option>
-                        <!-- Add other options here -->
                     </select>
                 </div>
 
@@ -219,7 +217,6 @@
                         <option value="40-49">40-49</option>
                         <option value="50-59">50-59</option>
                         <option value="60+">60+</option>
-                        <!-- Add other options here -->
                     </select>
                 </div>
 
@@ -235,13 +232,13 @@
                 <!-- Body Count -->
                 <div class="form-section">
                     <label for="body-count">Body Count</label>
-                    <input type="tel" id="body-count" name="packet-number" pattern="[0-9]*" placeholder="Enter packet number" required>
+                    <input type="number" id="body-count" name="body-count" placeholder="Enter body count" required>
                 </div>
 
                 <!-- Assigned Ring -->
                 <div class="form-section">
                     <label for="assigned-ring">Assigned Ring</label>
-                    <input type="tel" id="assigned-ring" name="packet-number" pattern="[0-9]*" placeholder="Enter packet number" required>
+                    <input type="number" id="assigned-ring" name="assigned-ring" placeholder="Enter assigned ring" required>
                 </div>
 
                 <!-- Submit button -->
@@ -250,29 +247,4 @@
                 </div>
             </form>
         </div>
-    </div>
-
-    <script>
-        // Event listeners for buttons
-        document.getElementById('champion-btn').addEventListener('click', function() {
-            document.getElementById('champion-btn').style.backgroundColor = '#2980b9';
-            document.getElementById('recreational-btn').style.backgroundColor = '#3498db';
-        });
-
-        document.getElementById('recreational-btn').addEventListener('click', function() {
-            document.getElementById('recreational-btn').style.backgroundColor = '#2980b9';
-            document.getElementById('champion-btn').style.backgroundColor = '#3498db';
-        });
-
-        document.getElementById('male-btn').addEventListener('click', function() {
-            document.getElementById('male-btn').style.backgroundColor = '#2980b9';
-            document.getElementById('female-btn').style.backgroundColor = '#3498db';
-        });
-
-        document.getElementById('female-btn').addEventListener('click', function() {
-            document.getElementById('female-btn').style.backgroundColor = '#2980b9';
-            document.getElementById('male-btn').style.backgroundColor = '#3498db';
-        });
-    </script>
-</body>
-</html>
+    </
