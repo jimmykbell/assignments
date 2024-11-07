@@ -14,30 +14,32 @@ body {
 /* Header Styling */
 header {
     text-align: center;
-    padding: 20px;
+    padding: 15px;
     background-color: #4caf50;
     color: #fff;
 }
 
 h1 {
-    font-size: 1.8em;
+    font-size: 1.6em; /* Reduced size for smaller screens */
 }
 
 /* Button Section Styling */
 .section-button {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 10px 18px;
     font-size: 1em;
     background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 90%; /* Full width on mobile */
+    max-width: 400px;
 }
 
 button:hover {
@@ -46,10 +48,10 @@ button:hover {
 
 /* Data Section Styling */
 .data-section {
-    padding: 20px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 /* Popup Styling */
@@ -70,7 +72,8 @@ button:hover {
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    width: 80%;
+    width: 90%;
+    max-width: 400px; /* Keep popup manageable on all devices */
 }
 
 .popup-content h3 {
@@ -81,9 +84,11 @@ button:hover {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
+    font-size: 1em;
 }
 
 .popup-content button {
-    width: 45%;
+    width: 48%; /* Smaller buttons for mobile */
     margin: 5px;
+    font-size: 1em;
 }
