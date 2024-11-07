@@ -3,92 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Martial Arts Tournament - Add Packet</title>
-    <style>
-        /* Your custom styles here */
-        .button {
-            padding: 10px 20px;
-            margin: 5px;
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .button.selected {
-            background-color: #f44336;
-        }
-
-        .step {
-            display: none;
-        }
-
-        #popup {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .popup-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .step h2 {
-            margin-bottom: 20px;
-        }
-
-        .button-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .button-container button {
-            margin: 5px;
-        }
-    </style>
+    <title>Tournament Helper</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- Main Buttons -->
-<div>
-    <button class="button" onclick="openAddPacketPopup()">Add Packet</button>
-    <button class="button" onclick="window.location.href='viewRings.html'">View Rings</button>
-    <button class="button" onclick="window.location.href='viewPackets.html'">View Packets</button>
+<div class="main-container">
+    <h1>Martial Arts Tournament</h1>
+    <div class="button-container">
+        <button class="button" onclick="openAddPacketPopup()">Add Packet</button>
+        <button class="button" onclick="window.location.href='viewPackets.html'">View Packets</button>
+        <button class="button" onclick="window.location.href='https://jimmykbell.github.io/Ringapp/'">View Rings</button>
+    </div>
 </div>
 
 <!-- Popup for Add Packet Form -->
-<div id="popup" style="display:none;">
+<div id="popup" class="popup-container">
     <div class="popup-content">
-        <div class="step">
-            <h2>Packet Number</h2>
+        <div class="popup-header">
+            <h2>Add Packet Information</h2>
+            <button class="close-popup" onclick="closePopup()">×</button>
+        </div>
+
+        <!-- Packet Number -->
+        <div class="step" id="packet-number-step">
+            <label for="packet-number">Packet Number</label>
             <input type="number" id="packet-number" placeholder="Enter packet number" oninput="nextQuestion()">
         </div>
-        
+
         <!-- Champion or Recreational -->
-        <div class="step">
-            <h2>Champion or Recreational?</h2>
+        <div class="step" id="champion-rec-step">
+            <h3>Champion or Recreational?</h3>
             <div class="button-container">
                 <button class="button" onclick="selectChampionRec('Champion')">Champion</button>
                 <button class="button" onclick="selectChampionRec('Recreational')">Recreational</button>
             </div>
         </div>
         
-        <!-- Rank Start -->
-        <div class="step">
-            <h2>Start Rank</h2>
+        <!-- Start Rank -->
+        <div class="step" id="start-rank-step">
+            <label>Start Rank</label>
             <div class="button-container">
                 <button class="button" onclick="selectRank('White')">White</button>
                 <button class="button" onclick="selectRank('Orange')">Orange</button>
@@ -102,9 +57,9 @@
             </div>
         </div>
 
-        <!-- Rank End -->
-        <div class="step">
-            <h2>End Rank</h2>
+        <!-- End Rank -->
+        <div class="step" id="end-rank-step">
+            <label>End Rank</label>
             <div class="button-container">
                 <button class="button" onclick="selectEndRank('White')">White</button>
                 <button class="button" onclick="selectEndRank('Orange')">Orange</button>
@@ -119,8 +74,8 @@
         </div>
 
         <!-- Age Group -->
-        <div class="step">
-            <h2>Age Group</h2>
+        <div class="step" id="age-group-step">
+            <label>Age Group</label>
             <div class="button-container">
                 <button class="button" onclick="selectAgeGroup('8 and Under')">8 and Under</button>
                 <button class="button" onclick="selectAgeGroup('9-10')">9-10</button>
@@ -136,8 +91,8 @@
         </div>
 
         <!-- Gender -->
-        <div class="step">
-            <h2>Gender</h2>
+        <div class="step" id="gender-step">
+            <label>Gender</label>
             <div class="button-container">
                 <button class="button" onclick="selectGender('Male')">Male</button>
                 <button class="button" onclick="selectGender('Female')">Female</button>
@@ -145,80 +100,26 @@
         </div>
 
         <!-- Body Count -->
-        <div class="step">
-            <h2>Body Count</h2>
+        <div class="step" id="body-count-step">
+            <label>Body Count</label>
             <input type="number" id="body-count" placeholder="Enter body count" oninput="nextQuestion()">
         </div>
 
         <!-- Assigned Ring -->
-        <div class="step">
-            <h2>Assigned Ring</h2>
+        <div class="step" id="assigned-ring-step">
+            <label>Assigned Ring</label>
             <input type="number" id="assigned-ring" placeholder="Enter assigned ring number" oninput="nextQuestion()">
         </div>
 
         <!-- Save Data -->
         <div id="save-data" class="step">
-            <h2>Save Data?</h2>
+            <h3>Save Data?</h3>
             <button onclick="saveData()">Save</button>
         </div>
     </div>
 </div>
 
-<script>
-    // Variables to store input values
-    let packetNumber, championRec, startRank, endRank, ageGroup, gender, bodyCount, assignedRing;
-    let currentStep = 0;
+<script src="script.js"></script>
 
-    // Show the Add Packet form
-    function openAddPacketPopup() {
-        document.getElementById("popup").style.display = "flex";
-    }
-
-    // Go to the next question
-    function nextQuestion() {
-        const steps = document.querySelectorAll('.step');
-        steps[currentStep].style.display = "none";
-        currentStep++;
-        if (currentStep < steps.length) {
-            steps[currentStep].style.display = "block";
-        }
-    }
-
-    // Set the champion/recreational choice
-    function selectChampionRec(value) {
-        championRec = value;
-        nextQuestion();
-    }
-
-    // Set start rank
-    function selectRank(value) {
-        startRank = value;
-        nextQuestion();
-    }
-
-    // Set end rank
-    function selectEndRank(value) {
-        endRank = value;
-        nextQuestion();
-    }
-
-    // Set age group
-    function selectAgeGroup(value) {
-        ageGroup = value;
-        nextQuestion();
-    }
-
-    // Set gender
-    function selectGender(value) {
-        gender = value;
-        nextQuestion();
-    }
-
-    // Save data (here we just alert for demonstration)
-    function saveData() {
-        alert("Data saved!");
-        document.getElementById("popup").style.display = "none";
-    }
-</script>
 </body>
 </html>
