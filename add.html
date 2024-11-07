@@ -149,8 +149,8 @@
                 <div class="form-section">
                     <label>Division</label>
                     <div class="button-group">
-                        <button type="button" class="button-link" id="champion-btn">Champion</button>
-                        <button type="button" class="button-link" id="recreational-btn">Recreational</button>
+                        <button type="button" class="button-link" id="champion-btn" data-division="selected">Champion</button>
+                        <button type="button" class="button-link" id="recreational-btn" data-division="selected">Recreational</button>
                     </div>
                 </div>
 
@@ -158,9 +158,9 @@
                 <div class="form-section">
                     <label>Level</label>
                     <div class="button-group">
-                        <button type="button" class="button-link" id="TT">Tiger</button>
-                        <button type="button" class="button-link" id="SA">Special Abilities</button>
-                        <button type="button" class="button-link" id="None">Neither</button>
+                        <button type="button" class="button-link" id="TT" data-level="selected">Tiger</button>
+                        <button type="button" class="button-link" id="SA" data-level="selected">Special Abilities</button>
+                        <button type="button" class="button-link" id="None" data-level="selected">Neither</button>
                     </div>
                 </div>
 
@@ -168,14 +168,44 @@
                 <div class="form-section">
                     <label for="rank-start">Starting Rank</label>
                     <select id="rank-start" name="rank-start">
-                        <!-- Options... -->
+                        <option value="White">White</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Camo">Camo</option>
+                        <option value="Green">Green</option>
+                        <option value="Purple">Purple</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Brown">Brown</option>
+                        <option value="Red">Red</option>
+                        <option value="1br">1BR</option>
+                        <option value="1BD">1BD</option>
+                        <option value="2br">2BR</option>
+                        <option value="2bd">2BD</option>
+                        <option value="3BD">3BD</option>
+                        <option value="4BD">4BD</option>
+                        <option value="5BD">5BD</option>
                     </select>
                 </div>
 
                 <div class="form-section">
                     <label for="rank-end">Ending Rank</label>
                     <select id="rank-end" name="rank-end">
-                        <!-- Options... -->
+                        <option value="White">White</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Camo">Camo</option>
+                        <option value="Green">Green</option>
+                        <option value="Purple">Purple</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Brown">Brown</option>
+                        <option value="Red">Red</option>
+                        <option value="1br">1BR</option>
+                        <option value="1BD">1BD</option>
+                        <option value="2br">2BR</option>
+                        <option value="2bd">2BD</option>
+                        <option value="3BD">3BD</option>
+                        <option value="4BD">4BD</option>
+                        <option value="5BD">5BD</option>
                     </select>
                 </div>
 
@@ -183,7 +213,16 @@
                 <div class="form-section">
                     <label for="age-group">Age Group</label>
                     <select id="age-group" name="age-group">
-                        <!-- Options... -->
+                        <option value="8 and Under">8 and Under</option>
+                        <option value="9-10">9-10</option>
+                        <option value="11-12">11-12</option>
+                        <option value="13-14">13-14</option>
+                        <option value="15-17">15-17</option>
+                        <option value="18-29">18-29</option>
+                        <option value="30-39">30-39</option>
+                        <option value="40-49">40-49</option>
+                        <option value="50-59">50-59</option>
+                        <option value="60+">60+</option>
                     </select>
                 </div>
 
@@ -191,8 +230,8 @@
                 <div class="form-section">
                     <label>Gender</label>
                     <div class="button-group">
-                        <button type="button" class="button-link" id="male-btn">Male</button>
-                        <button type="button" class="button-link" id="female-btn">Female</button>
+                        <button type="button" class="button-link" id="male-btn" data-gender="selected">Male</button>
+                        <button type="button" class="button-link" id="female-btn" data-gender="selected">Female</button>
                     </div>
                 </div>
 
@@ -219,14 +258,14 @@
     <script>
         // Firebase configuration (replace with your actual config object)
         var firebaseConfig = {
- apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
-    authDomain: "ataaddring.firebaseapp.com",
-    databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
-    projectId: "ataaddring",
-    storageBucket: "ataaddring.firebasestorage.app",
-    messagingSenderId: "478536722943",
-    appId: "1:478536722943:web:7852ceb7032530cf3b5fca",
-    measurementId: "G-1J682H31R3"
+            apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
+            authDomain: "ataaddring.firebaseapp.com",
+            databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
+            projectId: "ataaddring",
+            storageBucket: "ataaddring.firebasestorage.app",
+            messagingSenderId: "478536722943",
+            appId: "1:478536722943:web:7852ceb7032530cf3b5fca",
+            measurementId: "G-1J682H31R3"
         };
 
         // Initialize Firebase
