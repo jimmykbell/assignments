@@ -3,271 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Martial Arts Tournament Data Entry</title>
+    <title>Martial Arts Tournament - Add Packet</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        button {
-            padding: 15px;
-            font-size: 16px;
-            margin: 10px 0;
-            background-color: #007BFF;
+        /* Your custom styles here */
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #4caf50;
             color: white;
             border: none;
-            border-radius: 8px;
-            width: 100%;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        button.active {
-            background-color: #28a745;
-        }
-
-        .question-button {
-            display: block;
-            width: 100%;
-            background-color: #28a745;
-            color: white;
-            padding: 12px;
-            margin: 10px 0;
-            font-size: 18px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 16px;
         }
 
-        .question-button:hover {
-            background-color: #218838;
-        }
-
-        #popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-        }
-
-        .popup-content {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
+        .button.selected {
+            background-color: #f44336;
         }
 
         .step {
             display: none;
         }
 
-        .step:first-child {
-            display: block;
+        #popup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
-        input[type="tel"], input[type="number"] {
-            padding: 12px;
-            font-size: 16px;
-            width: 100%;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
         }
 
         .step h2 {
-            margin-bottom: 15px;
-            color: #333;
-            font-size: 1.5em;
-        }
-
-        .step input {
-            font-size: 1.2em;
-        }
-
-        #save-data button {
-            background-color: #28a745;
-            font-size: 18px;
-        }
-
-        @media (max-width: 600px) {
-            .popup-content {
-                width: 90%;
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            button, .question-button {
-                font-size: 14px;
-            }
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Martial Arts Tournament</h1>
+<!-- Main Buttons -->
+<div>
+    <button class="button" onclick="openAddPacketPopup()">Add Packet</button>
+    <button class="button" onclick="window.location.href='viewRings.html'">View Rings</button>
+    <button class="button" onclick="window.location.href='viewPackets.html'">View Packets</button>
+</div>
 
-    <!-- Main Buttons -->
-    <button onclick="openAddPacketPopup()">Add Packet</button>
-    <button onclick="window.location.href='viewRings.html'">View Rings</button>
-    <button onclick="window.location.href='viewPackets.html'">View Packets</button>
+<!-- Popup for Add Packet Form -->
+<div id="popup" style="display:none;">
+    <div class="popup-content">
+        <div class="step">
+            <h2>Packet Number</h2>
+            <input type="number" id="packet-number" placeholder="Enter packet number" oninput="nextQuestion()">
+        </div>
+        
+        <!-- Champion or Recreational -->
+        <div class="step">
+            <h2>Champion or Recreational?</h2>
+            <button class="button" onclick="selectChampionRec('Champion')">Champion</button>
+            <button class="button" onclick="selectChampionRec('Recreational')">Recreational</button>
+        </div>
+        
+        <!-- Rank Start -->
+        <div class="step">
+            <h2>Start Rank</h2>
+            <button class="button" onclick="selectRank('White')">White</button>
+            <button class="button" onclick="selectRank('Orange')">Orange</button>
+            <button class="button" onclick="selectRank('Yellow')">Yellow</button>
+            <button class="button" onclick="selectRank('Camo')">Camo</button>
+            <button class="button" onclick="selectRank('Green')">Green</button>
+            <button class="button" onclick="selectRank('Purple')">Purple</button>
+            <button class="button" onclick="selectRank('Blue')">Blue</button>
+            <button class="button" onclick="selectRank('Brown')">Brown</button>
+            <button class="button" onclick="selectRank('Red')">Red</button>
+        </div>
 
-    <!-- Popup for entering data -->
-    <div id="popup">
-        <div class="popup-content">
-            <!-- Step 1: Packet Number -->
-            <div id="packet-number" class="step">
-                <h2>Enter Packet Number</h2>
-                <input type="tel" id="packet-number-input" oninput="packetNumber = this.value;" maxlength="10" placeholder="Enter numeric value">
-                <button onclick="nextQuestion()">Next</button>
-            </div>
+        <!-- Rank End -->
+        <div class="step">
+            <h2>End Rank</h2>
+            <button class="button" onclick="selectEndRank('White')">White</button>
+            <button class="button" onclick="selectEndRank('Orange')">Orange</button>
+            <button class="button" onclick="selectEndRank('Yellow')">Yellow</button>
+            <button class="button" onclick="selectEndRank('Camo')">Camo</button>
+            <button class="button" onclick="selectEndRank('Green')">Green</button>
+            <button class="button" onclick="selectEndRank('Purple')">Purple</button>
+            <button class="button" onclick="selectEndRank('Blue')">Blue</button>
+            <button class="button" onclick="selectEndRank('Brown')">Brown</button>
+            <button class="button" onclick="selectEndRank('Red')">Red</button>
+        </div>
 
-            <!-- Step 2: Champion or Rec -->
-            <div id="champion-rec" class="step">
-                <h2>Champion or Recreational?</h2>
-                <button class="question-button" data-value="Champion" onclick="selectChampionRec('Champion')">Champion</button>
-                <button class="question-button" data-value="Recreational" onclick="selectChampionRec('Recreational')">Recreational</button>
-            </div>
+        <!-- Age Group -->
+        <div class="step">
+            <h2>Age Group</h2>
+            <button class="button" onclick="selectAgeGroup('8 and Under')">8 and Under</button>
+            <button class="button" onclick="selectAgeGroup('9-10')">9-10</button>
+            <button class="button" onclick="selectAgeGroup('11-12')">11-12</button>
+            <button class="button" onclick="selectAgeGroup('13-14')">13-14</button>
+            <button class="button" onclick="selectAgeGroup('15-17')">15-17</button>
+            <button class="button" onclick="selectAgeGroup('18-29')">18-29</button>
+            <button class="button" onclick="selectAgeGroup('30-39')">30-39</button>
+            <button class="button" onclick="selectAgeGroup('40-49')">40-49</button>
+            <button class="button" onclick="selectAgeGroup('50-59')">50-59</button>
+            <button class="button" onclick="selectAgeGroup('60+')">60+</button>
+        </div>
 
-            <!-- Step 3: Rank Group -->
-            <div id="rank-group" class="step">
-                <h2>Start Rank</h2>
-                <button class="question-button" data-value="White" onclick="selectRank('White')">White</button>
-                <button class="question-button" data-value="Orange" onclick="selectRank('Orange')">Orange</button>
-                <button class="question-button" data-value="Yellow" onclick="selectRank('Yellow')">Yellow</button>
-                <button class="question-button" data-value="Camo" onclick="selectRank('Camo')">Camo</button>
-                <button class="question-button" data-value="Green" onclick="selectRank('Green')">Green</button>
-                <button class="question-button" data-value="Purple" onclick="selectRank('Purple')">Purple</button>
-                <button class="question-button" data-value="Blue" onclick="selectRank('Blue')">Blue</button>
-                <button class="question-button" data-value="Brown" onclick="selectRank('Brown')">Brown</button>
-                <button class="question-button" data-value="Red" onclick="selectRank('Red')">Red</button>
-            </div>
+        <!-- Gender -->
+        <div class="step">
+            <h2>Gender</h2>
+            <button class="button" onclick="selectGender('Male')">Male</button>
+            <button class="button" onclick="selectGender('Female')">Female</button>
+        </div>
 
-            <!-- Step 4: End Rank -->
-            <div id="end-rank-group" class="step">
-                <h2>End Rank</h2>
-                <button class="question-button" data-value="White" onclick="selectEndRank('White')">White</button>
-                <button class="question-button" data-value="Orange" onclick="selectEndRank('Orange')">Orange</button>
-                <button class="question-button" data-value="Yellow" onclick="selectEndRank('Yellow')">Yellow</button>
-                <button class="question-button" data-value="Camo" onclick="selectEndRank('Camo')">Camo</button>
-                <button class="question-button" data-value="Green" onclick="selectEndRank('Green')">Green</button>
-                <button class="question-button" data-value="Purple" onclick="selectEndRank('Purple')">Purple</button>
-                <button class="question-button" data-value="Blue" onclick="selectEndRank('Blue')">Blue</button>
-                <button class="question-button" data-value="Brown" onclick="selectEndRank('Brown')">Brown</button>
-                <button class="question-button" data-value="Red" onclick="selectEndRank('Red')">Red</button>
-            </div>
+        <!-- Body Count -->
+        <div class="step">
+            <h2>Body Count</h2>
+            <input type="number" id="body-count" placeholder="Enter body count" oninput="nextQuestion()">
+        </div>
 
-            <!-- Step 5: Age Group -->
-            <div id="age-group" class="step">
-                <h2>Age Group</h2>
-                <button class="question-button" data-value="8 and Under" onclick="selectAgeGroup('8 and Under')">8 and Under</button>
-                <button class="question-button" data-value="9-10" onclick="selectAgeGroup('9-10')">9-10</button>
-                <button class="question-button" data-value="11-12" onclick="selectAgeGroup('11-12')">11-12</button>
-                <button class="question-button" data-value="13-14" onclick="selectAgeGroup('13-14')">13-14</button>
-                <button class="question-button" data-value="15-17" onclick="selectAgeGroup('15-17')">15-17</button>
-                <button class="question-button" data-value="18-29" onclick="selectAgeGroup('18-29')">18-29</button>
-                <button class="question-button" data-value="30-39" onclick="selectAgeGroup('30-39')">30-39</button>
-                <button class="question-button" data-value="40-49" onclick="selectAgeGroup('40-49')">40-49</button>
-                <button class="question-button" data-value="50-59" onclick="selectAgeGroup('50-59')">50-59</button>
-                <button class="question-button" data-value="60+" onclick="selectAgeGroup('60+')">60+</button>
-            </div>
+        <!-- Assigned Ring -->
+        <div class="step">
+            <h2>Assigned Ring</h2>
+            <input type="number" id="assigned-ring" placeholder="Enter assigned ring number" oninput="nextQuestion()">
+        </div>
 
-            <!-- Step 6: Save -->
-            <div id="save-data" class="step">
-                <h2>Save Data?</h2>
-                <button onclick="saveData()">Save</button>
-            </div>
+        <!-- Save Data -->
+        <div id="save-data" class="step">
+            <h2>Save Data?</h2>
+            <button onclick="saveData()">Save</button>
         </div>
     </div>
+</div>
 
-    <script>
-        // Function to show the popup
-        function openAddPacketPopup() {
-            document.getElementById("popup").style.display = "flex";
+<script>
+    // Variables to store input values
+    let packetNumber, championRec, startRank, endRank, ageGroup, gender, bodyCount, assignedRing;
+    let currentStep = 0;
+
+    // Show the Add Packet form
+    function openAddPacketPopup() {
+        document.getElementById("popup").style.display = "flex";
+    }
+
+    // Go to the next question
+    function nextQuestion() {
+        const steps = document.querySelectorAll('.step');
+        steps[currentStep].style.display = "none";
+        currentStep++;
+        if (currentStep < steps.length) {
+            steps[currentStep].style.display = "block";
         }
+    }
 
-        let packetNumber;
-        let championRec;
-        let startRank;
-        let endRank;
-        let ageGroup;
-        let currentStep = 0;
+    // Set the champion/recreational choice
+    function selectChampionRec(value) {
+        championRec = value;
+        nextQuestion();
+    }
 
-        // Switch to next question
-        function nextQuestion() {
-            const steps = document.querySelectorAll('.step');
-            steps[currentStep].style.display = "none";
-            currentStep++;
-            if (currentStep < steps.length) {
-                steps[currentStep].style.display = "block";
-            }
-        }
+    // Set start rank
+    function selectRank(value) {
+        startRank = value;
+        nextQuestion();
+    }
 
-        // Set champion or recreational
-        function selectChampionRec(value) {
-            championRec = value;
-            nextQuestion();
-        }
+    // Set end rank
+    function selectEndRank(value) {
+        endRank = value;
+        nextQuestion();
+    }
 
-        // Select rank
-        function selectRank(value) {
-            startRank = value;
-            nextQuestion();
-        }
+    // Set age group
+    function selectAgeGroup(value) {
+        ageGroup = value;
+        nextQuestion();
+    }
 
-        // Select end rank
-        function selectEndRank(value) {
-            endRank = value;
-            nextQuestion();
-        }
+    // Set gender
+    function selectGender(value) {
+        gender = value;
+        nextQuestion();
+    }
 
-        // Select age group
-        function selectAgeGroup(value) {
-            ageGroup = value;
-            nextQuestion();
-        }
-
-        // Save data (you can modify this to save data wherever needed)
-        function saveData() {
-            alert("Data saved!");
-            // Close the popup
-            document.getElementById("popup").style.display = "none";
-        }
-    </script>
+    // Save data (here we just alert for demonstration)
+    function saveData() {
+        alert("Data saved!");
+        document.getElementById("popup").style.display = "none";
+    }
+</script>
 </body>
 </html>
