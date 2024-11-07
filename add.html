@@ -5,133 +5,231 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Ring</title>
     <link rel="stylesheet" href="styles.css"> <!-- Your external CSS file -->
-    <script>
-        // Function to set the value when a button is clicked
-        function setValue(buttonGroup, value) {
-            document.getElementById(buttonGroup).value = value;
-            // Highlight selected button
-            const buttons = document.querySelectorAll(`#${buttonGroup} button`);
-            buttons.forEach(btn => btn.classList.remove('selected'));
-            event.target.classList.add('selected');
+    <style>
+        /* Basic reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
         }
 
-        // Handle form submission (just a simple example for now)
-        function handleSubmit() {
-            const packetNumber = document.getElementById('packetNumber').value;
-            const championOrRec = document.getElementById('championOrRec').value;
-            const startRank = document.getElementById('startRank').value;
-            const endRank = document.getElementById('endRank').value;
-            const ageGroup = document.getElementById('ageGroup').value;
-            const gender = document.getElementById('gender').value;
-            const bodyCount = document.getElementById('bodyCount').value;
-            const assignedRing = document.getElementById('assignedRing').value;
-            const timestamp = new Date().toISOString();  // Auto timestamp
-
-            // Store this data or send it to your database
-            console.log({
-                packetNumber,
-                championOrRec,
-                startRank,
-                endRank,
-                ageGroup,
-                gender,
-                bodyCount,
-                assignedRing,
-                timestamp
-            });
-
-            // You can add more code here to actually send the data to your database
+        /* Center the content on the page */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f7f6;
+            padding: 20px;
         }
-    </script>
+
+        /* Main form container */
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .form-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        /* Button group style */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .button-link {
+            background-color: #3498db;
+            border: none;
+            color: white;
+            font-size: 16px;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+            width: 48%;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-link:hover {
+            background-color: #2980b9;
+        }
+
+        /* Form section styling */
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        /* Label styling */
+        .form-section label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Input fields for rank group, etc. */
+        .form-section select,
+        .form-section input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+            margin-top: 8px;
+        }
+
+        .form-section select:focus,
+        .form-section input:focus {
+            border-color: #3498db;
+        }
+
+        .form-section button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .form-section button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Ensure responsiveness */
+        @media (max-width: 768px) {
+            .button-link {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="form-container">
-        <h1>Add Ring</h1>
-        <form onsubmit="event.preventDefault(); handleSubmit();">
-            <div class="form-group">
-                <label for="packetNumber">Packet Number:</label>
-                <input type="number" id="packetNumber" placeholder="Enter packet number" required>
+    <div class="container">
+        <div class="form-container">
+            <h1>Add Ring</h1>
+
+            <!-- Button options for viewing rings -->
+            <div class="button-group">
+                <button class="button-link" onclick="window.location.href='view-ring.html';">View Rings</button>
+                <button class="button-link" onclick="window.location.href='ring-status.html';">Ring Status</button>
             </div>
 
-            <div class="form-group">
-                <label for="championOrRec">Champion or Recreational:</label>
-                <div id="championOrRec" class="button-group">
-                    <button type="button" onclick="setValue('championOrRec', 'Champion')">Champion</button>
-                    <button type="button" onclick="setValue('championOrRec', 'Recreational')">Recreational</button>
+            <!-- Form for adding a ring -->
+            <form id="add-ring-form">
+                <!-- Packet number -->
+                <div class="form-section">
+                    <label for="packet-number">Packet Number</label>
+                    <input type="number" id="packet-number" name="packet-number" required placeholder="Enter Packet Number">
                 </div>
-                <input type="hidden" id="championOrRec" value="" required>
-            </div>
 
-            <div class="form-group">
-                <label for="startRank">Starting Rank:</label>
-                <div id="startRank" class="button-group">
-                    <button type="button" onclick="setValue('startRank', 'White')">White</button>
-                    <button type="button" onclick="setValue('startRank', 'Orange')">Orange</button>
-                    <button type="button" onclick="setValue('startRank', 'Yellow')">Yellow</button>
-                    <button type="button" onclick="setValue('startRank', 'Camo')">Camo</button>
-                    <button type="button" onclick="setValue('startRank', 'Green')">Green</button>
-                    <button type="button" onclick="setValue('startRank', 'Purple')">Purple</button>
-                    <button type="button" onclick="setValue('startRank', 'Blue')">Blue</button>
-                    <button type="button" onclick="setValue('startRank', 'Brown')">Brown</button>
-                    <button type="button" onclick="setValue('startRank', 'Red')">Red</button>
+                <!-- Champion or Rec -->
+                <div class="form-section">
+                    <label>Champion or Rec</label>
+                    <div class="button-group">
+                        <button type="button" class="button-link" id="champion-btn">Champion</button>
+                        <button type="button" class="button-link" id="recreational-btn">Recreational</button>
+                    </div>
                 </div>
-                <input type="hidden" id="startRank" value="" required>
-            </div>
 
-            <div class="form-group">
-                <label for="endRank">Ending Rank:</label>
-                <div id="endRank" class="button-group">
-                    <button type="button" onclick="setValue('endRank', 'White')">White</button>
-                    <button type="button" onclick="setValue('endRank', 'Orange')">Orange</button>
-                    <button type="button" onclick="setValue('endRank', 'Yellow')">Yellow</button>
-                    <button type="button" onclick="setValue('endRank', 'Camo')">Camo</button>
-                    <button type="button" onclick="setValue('endRank', 'Green')">Green</button>
-                    <button type="button" onclick="setValue('endRank', 'Purple')">Purple</button>
-                    <button type="button" onclick="setValue('endRank', 'Blue')">Blue</button>
-                    <button type="button" onclick="setValue('endRank', 'Brown')">Brown</button>
-                    <button type="button" onclick="setValue('endRank', 'Red')">Red</button>
+                <!-- Rank Group -->
+                <div class="form-section">
+                    <label for="rank-start">Starting Rank</label>
+                    <select id="rank-start" name="rank-start">
+                        <option value="White">White</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Yellow">Yellow</option>
+                        <!-- Add other options here -->
+                    </select>
                 </div>
-                <input type="hidden" id="endRank" value="" required>
-            </div>
 
-            <div class="form-group">
-                <label for="ageGroup">Age Group:</label>
-                <div id="ageGroup" class="button-group">
-                    <button type="button" onclick="setValue('ageGroup', '8 and Under')">8 and Under</button>
-                    <button type="button" onclick="setValue('ageGroup', '9-10')">9-10</button>
-                    <button type="button" onclick="setValue('ageGroup', '11-12')">11-12</button>
-                    <button type="button" onclick="setValue('ageGroup', '13-14')">13-14</button>
-                    <button type="button" onclick="setValue('ageGroup', '15-17')">15-17</button>
-                    <button type="button" onclick="setValue('ageGroup', '18-29')">18-29</button>
-                    <button type="button" onclick="setValue('ageGroup', '30-39')">30-39</button>
-                    <button type="button" onclick="setValue('ageGroup', '40-49')">40-49</button>
-                    <button type="button" onclick="setValue('ageGroup', '50-59')">50-59</button>
-                    <button type="button" onclick="setValue('ageGroup', '60+')">60+</button>
+                <div class="form-section">
+                    <label for="rank-end">Ending Rank</label>
+                    <select id="rank-end" name="rank-end">
+                        <option value="Yellow">Yellow</option>
+                        <option value="Green">Green</option>
+                        <option value="Blue">Blue</option>
+                        <!-- Add other options here -->
+                    </select>
                 </div>
-                <input type="hidden" id="ageGroup" value="" required>
-            </div>
 
-            <div class="form-group">
-                <label for="gender">Gender:</label>
-                <div id="gender" class="button-group">
-                    <button type="button" onclick="setValue('gender', 'Male')">Male</button>
-                    <button type="button" onclick="setValue('gender', 'Female')">Female</button>
+                <!-- Age Group -->
+                <div class="form-section">
+                    <label for="age-group">Age Group</label>
+                    <select id="age-group" name="age-group">
+                        <option value="8 and Under">8 and Under</option>
+                        <option value="9-10">9-10</option>
+                        <option value="11-12">11-12</option>
+                        <!-- Add other options here -->
+                    </select>
                 </div>
-                <input type="hidden" id="gender" value="" required>
-            </div>
 
-            <div class="form-group">
-                <label for="bodyCount">Body Count:</label>
-                <input type="number" id="bodyCount" placeholder="Enter body count" required>
-            </div>
+                <!-- Gender -->
+                <div class="form-section">
+                    <label>Gender</label>
+                    <div class="button-group">
+                        <button type="button" class="button-link" id="male-btn">Male</button>
+                        <button type="button" class="button-link" id="female-btn">Female</button>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="assignedRing">Assigned Ring:</label>
-                <input type="number" id="assignedRing" placeholder="Enter assigned ring" required>
-            </div>
+                <!-- Body Count -->
+                <div class="form-section">
+                    <label for="body-count">Body Count</label>
+                    <input type="number" id="body-count" name="body-count" required placeholder="Enter Body Count">
+                </div>
 
-            <button type="submit">Submit</button>
-        </form>
+                <!-- Assigned Ring -->
+                <div class="form-section">
+                    <label for="assigned-ring">Assigned Ring</label>
+                    <input type="number" id="assigned-ring" name="assigned-ring" required placeholder="Enter Assigned Ring">
+                </div>
+
+                <!-- Submit button -->
+                <div class="form-section">
+                    <button type="submit">Save Ring</button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <script>
+        // Event listeners for buttons
+        document.getElementById('champion-btn').addEventListener('click', function() {
+            document.getElementById('champion-btn').style.backgroundColor = '#2980b9';
+            document.getElementById('recreational-btn').style.backgroundColor = '#3498db';
+        });
+
+        document.getElementById('recreational-btn').addEventListener('click', function() {
+            document.getElementById('recreational-btn').style.backgroundColor = '#2980b9';
+            document.getElementById('champion-btn').style.backgroundColor = '#3498db';
+        });
+
+        document.getElementById('male-btn').addEventListener('click', function() {
+            document.getElementById('male-btn').style.backgroundColor = '#2980b9';
+            document.getElementById('female-btn').style.backgroundColor = '#3498db';
+        });
+
+        document.getElementById('female-btn').addEventListener('click', function() {
+            document.getElementById('female-btn').style.backgroundColor = '#2980b9';
+            document.getElementById('male-btn').style.backgroundColor = '#3498db';
+        });
+    </script>
 </body>
 </html>
