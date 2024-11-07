@@ -3,116 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Martial Arts Tournament - Add Packet</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Martial Arts Tournament</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="container">
+        <h1 class="title">Martial Arts Tournament</h1>
+        
+        <div class="button-container">
+            <button class="button" id="add-ring-btn">Add Ring</button>
+            <button class="button" id="view-ring-btn">View Ring</button>
+            <button class="button" id="ring-status-btn">Ring Status</button>
+        </div>
 
-<!-- Main Buttons -->
-<div class="main-container">
-    <h1>Martial Arts Tournament</h1>
-    <div class="button-container">
-        <button class="button" onclick="openAddPacketPopup()">Add Packet</button>
-        <button class="button" onclick="window.location.href='viewRings.html'">View Rings</button>
-        <button class="button" onclick="window.location.href='viewPackets.html'">View Packets</button>
+        <!-- Add Ring Popup -->
+        <div class="popup" id="add-ring-popup">
+            <div class="popup-content">
+                <h2>Add a New Ring</h2>
+                <form id="add-ring-form">
+                    <!-- Form questions will go here -->
+                </form>
+                <button class="button close-btn" onclick="closePopup('add-ring-popup')">Close</button>
+            </div>
+        </div>
+
+        <!-- Add your scripts here -->
+        <script src="script.js"></script>
     </div>
-</div>
-
-<!-- Popup for Add Packet Form -->
-<div id="popup" class="popup-container">
-    <div class="popup-content">
-        <div class="popup-header">
-            <h2>Add Packet Information</h2>
-            <button class="close-popup" onclick="closePopup()">×</button>
-        </div>
-
-        <!-- Steps inside the modal -->
-        <div class="step" id="packet-number-step">
-            <label for="packet-number">Packet Number</label>
-            <input type="number" id="packet-number" placeholder="Enter packet number" oninput="nextQuestion()">
-        </div>
-
-        <div class="step" id="champion-rec-step">
-            <h3>Champion or Recreational?</h3>
-            <div class="button-container">
-                <button class="button" onclick="selectChampionRec('Champion')">Champion</button>
-                <button class="button" onclick="selectChampionRec('Recreational')">Recreational</button>
-            </div>
-        </div>
-
-        <div class="step" id="start-rank-step">
-            <label>Start Rank</label>
-            <div class="button-container">
-                <button class="button" onclick="selectRank('White')">White</button>
-                <button class="button" onclick="selectRank('Orange')">Orange</button>
-                <button class="button" onclick="selectRank('Yellow')">Yellow</button>
-                <button class="button" onclick="selectRank('Camo')">Camo</button>
-                <button class="button" onclick="selectRank('Green')">Green</button>
-                <button class="button" onclick="selectRank('Purple')">Purple</button>
-                <button class="button" onclick="selectRank('Blue')">Blue</button>
-                <button class="button" onclick="selectRank('Brown')">Brown</button>
-                <button class="button" onclick="selectRank('Red')">Red</button>
-            </div>
-        </div>
-
-        <div class="step" id="end-rank-step">
-            <label>End Rank</label>
-            <div class="button-container">
-                <button class="button" onclick="selectEndRank('White')">White</button>
-                <button class="button" onclick="selectEndRank('Orange')">Orange</button>
-                <button class="button" onclick="selectEndRank('Yellow')">Yellow</button>
-                <button class="button" onclick="selectEndRank('Camo')">Camo</button>
-                <button class="button" onclick="selectEndRank('Green')">Green</button>
-                <button class="button" onclick="selectEndRank('Purple')">Purple</button>
-                <button class="button" onclick="selectEndRank('Blue')">Blue</button>
-                <button class="button" onclick="selectEndRank('Brown')">Brown</button>
-                <button class="button" onclick="selectEndRank('Red')">Red</button>
-            </div>
-        </div>
-
-        <div class="step" id="age-group-step">
-            <label>Age Group</label>
-            <div class="button-container">
-                <button class="button" onclick="selectAgeGroup('8 and Under')">8 and Under</button>
-                <button class="button" onclick="selectAgeGroup('9-10')">9-10</button>
-                <button class="button" onclick="selectAgeGroup('11-12')">11-12</button>
-                <button class="button" onclick="selectAgeGroup('13-14')">13-14</button>
-                <button class="button" onclick="selectAgeGroup('15-17')">15-17</button>
-                <button class="button" onclick="selectAgeGroup('18-29')">18-29</button>
-                <button class="button" onclick="selectAgeGroup('30-39')">30-39</button>
-                <button class="button" onclick="selectAgeGroup('40-49')">40-49</button>
-                <button class="button" onclick="selectAgeGroup('50-59')">50-59</button>
-                <button class="button" onclick="selectAgeGroup('60+')">60+</button>
-            </div>
-        </div>
-
-        <div class="step" id="gender-step">
-            <label>Gender</label>
-            <div class="button-container">
-                <button class="button" onclick="selectGender('Male')">Male</button>
-                <button class="button" onclick="selectGender('Female')">Female</button>
-            </div>
-        </div>
-
-        <div class="step" id="body-count-step">
-            <label>Body Count</label>
-            <input type="number" id="body-count" placeholder="Enter body count" oninput="nextQuestion()">
-        </div>
-
-        <div class="step" id="assigned-ring-step">
-            <label>Assigned Ring</label>
-            <input type="number" id="assigned-ring" placeholder="Enter assigned ring number" oninput="nextQuestion()">
-        </div>
-
-        <!-- Save Data -->
-        <div id="save-data" class="step">
-            <h3>Save Data?</h3>
-            <button onclick="saveData()">Save</button>
-        </div>
-    </div>
-</div>
-
-<script src="script.js"></script>
-
 </body>
 </html>
