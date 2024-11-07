@@ -135,16 +135,26 @@
             <form id="add-ring-form">
                 <!-- Packet number -->
                 <div class="form-section">
-                    <label for="packet-number">Packet Number</label>
-                    <input type="number" id="packet-number" name="packet-number" required placeholder="Enter Packet Number">
+                   <label for="packet-number">Packet Number:</label>
+<input type="tel" id="packet-number" name="packet-number" pattern="[0-9]*" placeholder="Enter packet number" required>
                 </div>
 
                 <!-- Champion or Rec -->
                 <div class="form-section">
-                    <label>Champion or Rec</label>
+                    <label>Division</label>
                     <div class="button-group">
                         <button type="button" class="button-link" id="champion-btn">Champion</button>
                         <button type="button" class="button-link" id="recreational-btn">Recreational</button>
+                    </div>
+                </div>
+
+                 <!-- Level -->
+                <div class="form-section">
+                    <label>Level</label>
+                    <div class="button-group">
+                        <button type="button" class="button-link" id="TT">Tiger</button>
+                        <button type="button" class="button-link" id="SA">Special Abilities</button>
+                        <button type="button" class="button-link" id="None">Neither</button>
                     </div>
                 </div>
 
@@ -176,6 +186,13 @@
                         <option value="8 and Under">8 and Under</option>
                         <option value="9-10">9-10</option>
                         <option value="11-12">11-12</option>
+                        <option value="13-14">13-14</option>
+                        <option value="15-17">15-17</option>
+                        <option value="18-29">18-29</option>
+                        <option value="30-39">30-39</option>
+                        <option value="40-49">40-49</option>
+                        <option value="50-59">50-59</option>
+                        <option value="60+">60+</option>
                         <!-- Add other options here -->
                     </select>
                 </div>
@@ -192,13 +209,13 @@
                 <!-- Body Count -->
                 <div class="form-section">
                     <label for="body-count">Body Count</label>
-                    <input type="number" id="body-count" name="body-count" required placeholder="Enter Body Count">
+                    <input type="tel" id="body-count" name="packet-number" pattern="[0-9]*" placeholder="Enter packet number" required>
                 </div>
 
                 <!-- Assigned Ring -->
                 <div class="form-section">
                     <label for="assigned-ring">Assigned Ring</label>
-                    <input type="number" id="assigned-ring" name="assigned-ring" required placeholder="Enter Assigned Ring">
+                    <input type="tel" id="assigned-ring" name="packet-number" pattern="[0-9]*" placeholder="Enter packet number" required>
                 </div>
 
                 <!-- Submit button -->
