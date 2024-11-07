@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="styles.css"> <!-- Your external CSS file -->
     <style>
         .button-link.selected {
-    background-color: #2980b9;
-}
+            background-color: #2980b9;
+        }
 
         /* Basic reset */
         body, html {
@@ -153,9 +153,8 @@
                 <div class="form-section">
                     <label>Division</label>
                     <div class="button-group">
-<button type="button" class="button-link" id="champion-btn" onclick="selectOption('division', 'Champion')">Champion</button>
-<button type="button" class="button-link" id="recreational-btn" onclick="selectOption('division', 'Recreational')">Recreational</button>
-
+                        <button type="button" class="button-link" id="division-champion-btn" onclick="selectOption('division', 'Champion')">Champion</button>
+                        <button type="button" class="button-link" id="division-recreational-btn" onclick="selectOption('division', 'Recreational')">Recreational</button>
                     </div>
                 </div>
 
@@ -163,9 +162,9 @@
                 <div class="form-section">
                     <label>Level</label>
                     <div class="button-group">
-                        <button type="button" class="button-link" id="TT" data-level="selected">Tiger</button>
-                        <button type="button" class="button-link" id="SA" data-level="selected">Special Abilities</button>
-                        <button type="button" class="button-link" id="None" data-level="selected">Neither</button>
+                        <button type="button" class="button-link" id="level-TT" onclick="selectOption('level', 'Tiger')">Tiger</button>
+                        <button type="button" class="button-link" id="level-SA" onclick="selectOption('level', 'Special Abilities')">Special Abilities</button>
+                        <button type="button" class="button-link" id="level-None" onclick="selectOption('level', 'Neither')">Neither</button>
                     </div>
                 </div>
 
@@ -235,8 +234,8 @@
                 <div class="form-section">
                     <label>Gender</label>
                     <div class="button-group">
-                        <button type="button" class="button-link" id="male-btn" data-gender="selected">Male</button>
-                        <button type="button" class="button-link" id="female-btn" data-gender="selected">Female</button>
+                        <button type="button" class="button-link" id="gender-male-btn" onclick="selectOption('gender', 'Male')">Male</button>
+                        <button type="button" class="button-link" id="gender-female-btn" onclick="selectOption('gender', 'Female')">Female</button>
                     </div>
                 </div>
 
@@ -246,90 +245,84 @@
                     <input type="number" id="body-count" name="body-count" placeholder="Enter body count" required>
                 </div>
 
-                <!-- Assigned Ring -->
-                <div class="form-section">
-                    <label for="assigned-ring">Assigned Ring</label>
-                    <input type="number" id="assigned-ring" name="assigned-ring" placeholder="Enter assigned ring" required>
-                </div>
-
                 <!-- Submit button -->
                 <div class="form-section">
-                    <button type="submit">Save Ring</button>
+                    <button type="submit" id="submit-button">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        function selectOption(category, value) {
-    // Select all buttons in the specified category (e.g., division, level, gender)
-    const buttons = document.querySelectorAll(`button[data-${category}]`);
-    
-    // Remove the 'selected' class from all buttons in the category
-    buttons.forEach(button => button.classList.remove('selected'));
-    
-    // Add the 'selected' class to the clicked button and set its data attribute
-    const selectedButton = document.querySelector(`#${category}-${value.toLowerCase()}-btn`);
-    selectedButton.classList.add('selected');
-    selectedButton.setAttribute(`data-${category}`, "selected");
-}
-
-        // Firebase configuration (replace with your actual config object)
-        var firebaseConfig = {
-            apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
-            authDomain: "ataaddring.firebaseapp.com",
-            databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
-            projectId: "ataaddring",
-            storageBucket: "ataaddring.firebasestorage.app",
-            messagingSenderId: "478536722943",
-            appId: "1:478536722943:web:7852ceb7032530cf3b5fca",
-            measurementId: "G-1J682H31R3"
-        };
-
         // Initialize Firebase
+        const firebaseConfig = {
+ apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
+    authDomain: "ataaddring.firebaseapp.com",
+    databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
+    projectId: "ataaddring",
+    storageBucket: "ataaddring.firebasestorage.app",
+    messagingSenderId: "478536722943",
+    appId: "1:478536722943:web:7852ceb7032530cf3b5fca",
+    measurementId: "G-1J682H31R3"
+        };
         firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
-        // Get a reference to the Firebase Database
-        var database = firebase.database();
+        // Function to handle selecting an option for Division, Level, or Gender
+        function selectOption(category, value) {
+            const buttons = document.querySelectorAll(`button[data-${category}]`);
+            buttons.forEach(button => button.classList.remove('selected'));
 
-// Handle form submission
-document.getElementById('add-ring-form').addEventListener('submit', function(e) {
-    e.preventDefault();
+            const selectedButton = document.querySelector(`#${category}-${value.toLowerCase()}-btn`);
+            selectedButton.classList.add('selected');
+            selectedButton.setAttribute(`data-${category}`, "selected");
 
-    // Collect form data
-    var packetNumber = document.getElementById('packet-number').value;
-    
-    // Get the text of the selected buttons for each group
-    var division = document.querySelector('button[data-division="selected"]').textContent;
-    var level = document.querySelector('button[data-level="selected"]').textContent;
-    var gender = document.querySelector('button[data-gender="selected"]').textContent;
-    
-    // Capture other form values
-    var rankStart = document.getElementById('rank-start').value;
-    var rankEnd = document.getElementById('rank-end').value;
-    var ageGroup = document.getElementById('age-group').value;
-    var bodyCount = document.getElementById('body-count').value;
-    var assignedRing = document.getElementById('assigned-ring').value;
+            console.log(`Selected ${category}: ${value}`); // Debugging output
+        }
 
-    // Save to Firebase
-    database.ref('rings/' + packetNumber).set({
-        packetNumber: packetNumber,
-        division: division,
-        level: level,
-        rankStart: rankStart,
-        rankEnd: rankEnd,
-        ageGroup: ageGroup,
-        gender: gender,
-        bodyCount: bodyCount,
-        assignedRing: assignedRing,
-        timestamp: firebase.database.ServerValue.TIMESTAMP
-    }).then(function() {
-        alert('Ring saved successfully!');
-    }).catch(function(error) {
-        alert('Error saving ring: ' + error.message);
-    });
-});
+        // Function to handle form submission
+        document.getElementById('add-ring-form').addEventListener('submit', function(e) {
+            e.preventDefault();
 
+            // Get form values
+            const packetNumber = document.getElementById('packet-number').value;
+            const division = document.querySelector('[data-division="selected"]')?.textContent;
+            const level = document.querySelector('[data-level="selected"]')?.textContent;
+            const gender = document.querySelector('[data-gender="selected"]')?.textContent;
+            const rankStart = document.getElementById('rank-start').value;
+            const rankEnd = document.getElementById('rank-end').value;
+            const ageGroup = document.getElementById('age-group').value;
+            const bodyCount = document.getElementById('body-count').value;
+
+            // Validate form inputs
+            if (!packetNumber || !division || !level || !gender || !bodyCount) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            // Data to be sent to Firebase
+            const ringData = {
+                packetNumber,
+                division,
+                level,
+                gender,
+                rankStart,
+                rankEnd,
+                ageGroup,
+                bodyCount
+            };
+
+            // Save data to Firebase
+            database.ref('rings').push(ringData)
+                .then(() => {
+                    alert('Ring added successfully!');
+                    document.getElementById('add-ring-form').reset();
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Error saving data to Firebase');
+                });
+        });
     </script>
 </body>
 </html>
