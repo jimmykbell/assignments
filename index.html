@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Martial Arts Tournament Dashboard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -24,6 +24,12 @@
             <button onclick="showPopup()">Add New Data</button>
         </section>
 
+        <!-- External Link Button Section -->
+<section class="section-button">
+    <button onclick="window.location.href='https://https://jimmykbell.github.io/Ringapp/';">Ring Status</button>
+</section>
+
+
         <!-- Real-Time Data Display Section -->
         <section id="real-time-data" class="data-section">
             <!-- JavaScript will populate this section with data from Firebase -->
@@ -33,7 +39,6 @@
     <!-- Popup Component for Data Entry (Initially Hidden) -->
     <div id="popup" class="popup">
         <div class="popup-content">
-            <!-- Dynamic Questions and Input Fields Here -->
             <h3>Enter Data</h3>
             <input type="text" id="popup-input" placeholder="Enter response here">
             <button onclick="nextQuestion()">Next</button>
