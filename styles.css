@@ -1,0 +1,89 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+/* Header Styling */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #4caf50;
+    color: #fff;
+}
+
+h1 {
+    font-size: 1.8em;
+}
+
+/* Button Section Styling */
+.section-button {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Data Section Styling */
+.data-section {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Popup Styling */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 80%;
+}
+
+.popup-content h3 {
+    margin-bottom: 10px;
+}
+
+.popup-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.popup-content button {
+    width: 45%;
+    margin: 5px;
+}
