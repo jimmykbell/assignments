@@ -1,130 +1,82 @@
-/* Reset some styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f7fc;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
     padding: 20px;
 }
 
-/* Centering the main container */
-.main-container {
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
+.title {
+    font-size: 2rem;
+    margin-bottom: 30px;
 }
 
-/* Buttons */
 .button-container {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .button {
-    background-color: #4CAF50;
-    border: none;
+    background-color: #3498db;
     color: white;
-    padding: 15px 32px;
-    text-align: center;
-    font-size: 16px;
-    margin: 5px;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    width: 200px;
     transition: background-color 0.3s;
 }
 
 .button:hover {
-    background-color: #45a049;
+    background-color: #2980b9;
 }
 
-/* Popup Styles */
-.popup-container {
+.button:active {
+    background-color: #1abc9c;
+}
+
+.popup {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    display: none;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    z-index: 10;
 }
 
 .popup-content {
     background-color: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 8px;
-    width: 100%;
+    width: 90%;
     max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.close-btn {
+    background-color: #e74c3c;
 }
 
-.popup-header h2 {
-    font-size: 22px;
-    margin: 0;
-}
-
-.close-popup {
-    font-size: 24px;
-    color: #333;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.step {
-    display: none;
-    margin-bottom: 20px;
-}
-
-.step input,
-.step select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.step label {
-    font-size: 16px;
-    display: block;
-    margin-bottom: 10px;
-}
-
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-/* Responsive Styles */
 @media (max-width: 768px) {
-    .button {
-        width: 45%;
+    .button-container {
+        flex-direction: column;
     }
-}
 
-@media (max-width: 480px) {
     .button {
         width: 100%;
     }
