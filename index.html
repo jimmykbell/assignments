@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Helper</title>
+    <title>Martial Arts Tournament - Add Packet</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,8 +13,8 @@
     <h1>Martial Arts Tournament</h1>
     <div class="button-container">
         <button class="button" onclick="openAddPacketPopup()">Add Packet</button>
+        <button class="button" onclick="window.location.href='viewRings.html'">View Rings</button>
         <button class="button" onclick="window.location.href='viewPackets.html'">View Packets</button>
-        <button class="button" onclick="window.location.href='https://jimmykbell.github.io/Ringapp/'">View Rings</button>
     </div>
 </div>
 
@@ -26,13 +26,12 @@
             <button class="close-popup" onclick="closePopup()">×</button>
         </div>
 
-        <!-- Packet Number -->
+        <!-- Steps inside the modal -->
         <div class="step" id="packet-number-step">
             <label for="packet-number">Packet Number</label>
             <input type="number" id="packet-number" placeholder="Enter packet number" oninput="nextQuestion()">
         </div>
 
-        <!-- Champion or Recreational -->
         <div class="step" id="champion-rec-step">
             <h3>Champion or Recreational?</h3>
             <div class="button-container">
@@ -40,8 +39,7 @@
                 <button class="button" onclick="selectChampionRec('Recreational')">Recreational</button>
             </div>
         </div>
-        
-        <!-- Start Rank -->
+
         <div class="step" id="start-rank-step">
             <label>Start Rank</label>
             <div class="button-container">
@@ -57,7 +55,6 @@
             </div>
         </div>
 
-        <!-- End Rank -->
         <div class="step" id="end-rank-step">
             <label>End Rank</label>
             <div class="button-container">
@@ -73,7 +70,6 @@
             </div>
         </div>
 
-        <!-- Age Group -->
         <div class="step" id="age-group-step">
             <label>Age Group</label>
             <div class="button-container">
@@ -90,7 +86,6 @@
             </div>
         </div>
 
-        <!-- Gender -->
         <div class="step" id="gender-step">
             <label>Gender</label>
             <div class="button-container">
@@ -99,13 +94,11 @@
             </div>
         </div>
 
-        <!-- Body Count -->
         <div class="step" id="body-count-step">
             <label>Body Count</label>
             <input type="number" id="body-count" placeholder="Enter body count" oninput="nextQuestion()">
         </div>
 
-        <!-- Assigned Ring -->
         <div class="step" id="assigned-ring-step">
             <label>Assigned Ring</label>
             <input type="number" id="assigned-ring" placeholder="Enter assigned ring number" oninput="nextQuestion()">
