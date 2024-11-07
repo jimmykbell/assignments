@@ -1,94 +1,77 @@
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+    }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
-}
+    #popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
 
-/* Header Styling */
-header {
-    text-align: center;
-    padding: 15px;
-    background-color: #4caf50;
-    color: #fff;
-}
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        width: 300px;
+        text-align: center;
+    }
 
-h1 {
-    font-size: 1.6em; /* Reduced size for smaller screens */
-}
+    .question-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 20px;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-/* Button Section Styling */
-.section-button {
-    display: flex;
-    justify-content: center;
-    margin: 15px 0;
-}
+    .question-button:hover {
+        background-color: #45a049;
+    }
 
-button {
-    padding: 10px 18px;
-    font-size: 1em;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 90%; /* Full width on mobile */
-    max-width: 400px;
-}
+    .active {
+        background-color: #45a049; /* Slightly different to highlight */
+        border: 2px solid #333;
+        box-shadow: 0 0 10px rgba(0, 128, 0, 0.5);
+    }
 
-button:hover {
-    background-color: #45a049;
-}
+    input[type="tel"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
 
-/* Data Section Styling */
-.data-section {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
 
-/* Popup Styling */
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    align-items: center;
-    justify-content: center;
-}
-
-.popup-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    width: 90%;
-    max-width: 400px; /* Keep popup manageable on all devices */
-}
-
-.popup-content h3 {
-    margin-bottom: 10px;
-}
-
-.popup-content input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-size: 1em;
-}
-
-.popup-content button {
-    width: 48%; /* Smaller buttons for mobile */
-    margin: 5px;
-    font-size: 1em;
-}
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
