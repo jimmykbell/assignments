@@ -48,6 +48,16 @@
         .step h2 {
             margin-bottom: 20px;
         }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .button-container button {
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
@@ -70,58 +80,68 @@
         <!-- Champion or Recreational -->
         <div class="step">
             <h2>Champion or Recreational?</h2>
-            <button class="button" onclick="selectChampionRec('Champion')">Champion</button>
-            <button class="button" onclick="selectChampionRec('Recreational')">Recreational</button>
+            <div class="button-container">
+                <button class="button" onclick="selectChampionRec('Champion')">Champion</button>
+                <button class="button" onclick="selectChampionRec('Recreational')">Recreational</button>
+            </div>
         </div>
         
         <!-- Rank Start -->
         <div class="step">
             <h2>Start Rank</h2>
-            <button class="button" onclick="selectRank('White')">White</button>
-            <button class="button" onclick="selectRank('Orange')">Orange</button>
-            <button class="button" onclick="selectRank('Yellow')">Yellow</button>
-            <button class="button" onclick="selectRank('Camo')">Camo</button>
-            <button class="button" onclick="selectRank('Green')">Green</button>
-            <button class="button" onclick="selectRank('Purple')">Purple</button>
-            <button class="button" onclick="selectRank('Blue')">Blue</button>
-            <button class="button" onclick="selectRank('Brown')">Brown</button>
-            <button class="button" onclick="selectRank('Red')">Red</button>
+            <div class="button-container">
+                <button class="button" onclick="selectRank('White')">White</button>
+                <button class="button" onclick="selectRank('Orange')">Orange</button>
+                <button class="button" onclick="selectRank('Yellow')">Yellow</button>
+                <button class="button" onclick="selectRank('Camo')">Camo</button>
+                <button class="button" onclick="selectRank('Green')">Green</button>
+                <button class="button" onclick="selectRank('Purple')">Purple</button>
+                <button class="button" onclick="selectRank('Blue')">Blue</button>
+                <button class="button" onclick="selectRank('Brown')">Brown</button>
+                <button class="button" onclick="selectRank('Red')">Red</button>
+            </div>
         </div>
 
         <!-- Rank End -->
         <div class="step">
             <h2>End Rank</h2>
-            <button class="button" onclick="selectEndRank('White')">White</button>
-            <button class="button" onclick="selectEndRank('Orange')">Orange</button>
-            <button class="button" onclick="selectEndRank('Yellow')">Yellow</button>
-            <button class="button" onclick="selectEndRank('Camo')">Camo</button>
-            <button class="button" onclick="selectEndRank('Green')">Green</button>
-            <button class="button" onclick="selectEndRank('Purple')">Purple</button>
-            <button class="button" onclick="selectEndRank('Blue')">Blue</button>
-            <button class="button" onclick="selectEndRank('Brown')">Brown</button>
-            <button class="button" onclick="selectEndRank('Red')">Red</button>
+            <div class="button-container">
+                <button class="button" onclick="selectEndRank('White')">White</button>
+                <button class="button" onclick="selectEndRank('Orange')">Orange</button>
+                <button class="button" onclick="selectEndRank('Yellow')">Yellow</button>
+                <button class="button" onclick="selectEndRank('Camo')">Camo</button>
+                <button class="button" onclick="selectEndRank('Green')">Green</button>
+                <button class="button" onclick="selectEndRank('Purple')">Purple</button>
+                <button class="button" onclick="selectEndRank('Blue')">Blue</button>
+                <button class="button" onclick="selectEndRank('Brown')">Brown</button>
+                <button class="button" onclick="selectEndRank('Red')">Red</button>
+            </div>
         </div>
 
         <!-- Age Group -->
         <div class="step">
             <h2>Age Group</h2>
-            <button class="button" onclick="selectAgeGroup('8 and Under')">8 and Under</button>
-            <button class="button" onclick="selectAgeGroup('9-10')">9-10</button>
-            <button class="button" onclick="selectAgeGroup('11-12')">11-12</button>
-            <button class="button" onclick="selectAgeGroup('13-14')">13-14</button>
-            <button class="button" onclick="selectAgeGroup('15-17')">15-17</button>
-            <button class="button" onclick="selectAgeGroup('18-29')">18-29</button>
-            <button class="button" onclick="selectAgeGroup('30-39')">30-39</button>
-            <button class="button" onclick="selectAgeGroup('40-49')">40-49</button>
-            <button class="button" onclick="selectAgeGroup('50-59')">50-59</button>
-            <button class="button" onclick="selectAgeGroup('60+')">60+</button>
+            <div class="button-container">
+                <button class="button" onclick="selectAgeGroup('8 and Under')">8 and Under</button>
+                <button class="button" onclick="selectAgeGroup('9-10')">9-10</button>
+                <button class="button" onclick="selectAgeGroup('11-12')">11-12</button>
+                <button class="button" onclick="selectAgeGroup('13-14')">13-14</button>
+                <button class="button" onclick="selectAgeGroup('15-17')">15-17</button>
+                <button class="button" onclick="selectAgeGroup('18-29')">18-29</button>
+                <button class="button" onclick="selectAgeGroup('30-39')">30-39</button>
+                <button class="button" onclick="selectAgeGroup('40-49')">40-49</button>
+                <button class="button" onclick="selectAgeGroup('50-59')">50-59</button>
+                <button class="button" onclick="selectAgeGroup('60+')">60+</button>
+            </div>
         </div>
 
         <!-- Gender -->
         <div class="step">
             <h2>Gender</h2>
-            <button class="button" onclick="selectGender('Male')">Male</button>
-            <button class="button" onclick="selectGender('Female')">Female</button>
+            <div class="button-container">
+                <button class="button" onclick="selectGender('Male')">Male</button>
+                <button class="button" onclick="selectGender('Female')">Female</button>
+            </div>
         </div>
 
         <!-- Body Count -->
