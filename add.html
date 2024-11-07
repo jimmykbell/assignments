@@ -12,6 +12,10 @@
     <title>Add Ring</title>
     <link rel="stylesheet" href="styles.css"> <!-- Your external CSS file -->
     <style>
+        .button-link.selected {
+    background-color: #2980b9;
+}
+
         /* Basic reset */
         body, html {
             margin: 0;
@@ -149,8 +153,9 @@
                 <div class="form-section">
                     <label>Division</label>
                     <div class="button-group">
-                        <button type="button" class="button-link" id="champion-btn" data-division="selected">Champion</button>
-                        <button type="button" class="button-link" id="recreational-btn" data-division="selected">Recreational</button>
+<button type="button" class="button-link" id="champion-btn" onclick="selectOption('division', 'Champion')">Champion</button>
+<button type="button" class="button-link" id="recreational-btn" onclick="selectOption('division', 'Recreational')">Recreational</button>
+
                     </div>
                 </div>
 
@@ -256,6 +261,19 @@
     </div>
 
     <script>
+        function selectOption(category, value) {
+    // Select all buttons in the specified category (e.g., division, level, gender)
+    const buttons = document.querySelectorAll(`button[data-${category}]`);
+    
+    // Remove the 'selected' class from all buttons in the category
+    buttons.forEach(button => button.classList.remove('selected'));
+    
+    // Add the 'selected' class to the clicked button and set its data attribute
+    const selectedButton = document.querySelector(`#${category}-${value.toLowerCase()}-btn`);
+    selectedButton.classList.add('selected');
+    selectedButton.setAttribute(`data-${category}`, "selected");
+}
+
         // Firebase configuration (replace with your actual config object)
         var firebaseConfig = {
             apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
@@ -274,39 +292,44 @@
         // Get a reference to the Firebase Database
         var database = firebase.database();
 
-        // Handle form submission
-        document.getElementById('add-ring-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+// Handle form submission
+document.getElementById('add-ring-form').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-            // Collect form data
-            var packetNumber = document.getElementById('packet-number').value;
-            var division = document.querySelector('button[data-division="selected"]').textContent; // Need to implement division button selection
-            var level = document.querySelector('button[data-level="selected"]').textContent; // Need to implement level button selection
-            var rankStart = document.getElementById('rank-start').value;
-            var rankEnd = document.getElementById('rank-end').value;
-            var ageGroup = document.getElementById('age-group').value;
-            var gender = document.querySelector('button[data-gender="selected"]').textContent; // Implement gender selection
-            var bodyCount = document.getElementById('body-count').value;
-            var assignedRing = document.getElementById('assigned-ring').value;
+    // Collect form data
+    var packetNumber = document.getElementById('packet-number').value;
+    
+    // Get the text of the selected buttons for each group
+    var division = document.querySelector('button[data-division="selected"]').textContent;
+    var level = document.querySelector('button[data-level="selected"]').textContent;
+    var gender = document.querySelector('button[data-gender="selected"]').textContent;
+    
+    // Capture other form values
+    var rankStart = document.getElementById('rank-start').value;
+    var rankEnd = document.getElementById('rank-end').value;
+    var ageGroup = document.getElementById('age-group').value;
+    var bodyCount = document.getElementById('body-count').value;
+    var assignedRing = document.getElementById('assigned-ring').value;
 
-            // Save to Firebase
-            database.ref('rings/' + packetNumber).set({
-                packetNumber: packetNumber,
-                division: division,
-                level: level,
-                rankStart: rankStart,
-                rankEnd: rankEnd,
-                ageGroup: ageGroup,
-                gender: gender,
-                bodyCount: bodyCount,
-                assignedRing: assignedRing,
-                timestamp: firebase.database.ServerValue.TIMESTAMP
-            }).then(function() {
-                alert('Ring saved successfully!');
-            }).catch(function(error) {
-                alert('Error saving ring: ' + error.message);
-            });
-        });
+    // Save to Firebase
+    database.ref('rings/' + packetNumber).set({
+        packetNumber: packetNumber,
+        division: division,
+        level: level,
+        rankStart: rankStart,
+        rankEnd: rankEnd,
+        ageGroup: ageGroup,
+        gender: gender,
+        bodyCount: bodyCount,
+        assignedRing: assignedRing,
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+    }).then(function() {
+        alert('Ring saved successfully!');
+    }).catch(function(error) {
+        alert('Error saving ring: ' + error.message);
+    });
+});
+
     </script>
 </body>
 </html>
