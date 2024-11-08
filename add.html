@@ -155,7 +155,7 @@
                 <!-- Division (Champion or Rec) -->
                 <div class="form-section">
                     <label>Division</label>
-                    <div class="button-group">
+                    <div class="button-group" id="division-group">
                         <button type="button" class="button-link" id="division-champion-btn" onclick="selectOption('division', 'Champion')">Champion</button>
                         <button type="button" class="button-link" id="division-recreational-btn" onclick="selectOption('division', 'Recreational')">Recreational</button>
                     </div>
@@ -164,7 +164,7 @@
                  <!-- Level -->
                 <div class="form-section">
                     <label>Level</label>
-                    <div class="button-group">
+                    <div class="button-group" id="level-group">
                         <button type="button" class="button-link" id="level-Tiger-btn" onclick="selectOption('level', 'Tiger')">Tiger</button>
                         <button type="button" class="button-link" id="level-SA-btn" onclick="selectOption('level', 'Special Abilities')">Special Abilities</button>
                         <button type="button" class="button-link" id="level-None-btn" onclick="selectOption('level', 'None')">None</button>
@@ -251,15 +251,17 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // Select option function
+        // Select option function with toggle functionality
         function selectOption(group, option) {
             const groupBtns = document.querySelectorAll(`#${group}-group .button-link`);
             groupBtns.forEach(btn => {
-                btn.classList.remove('selected'); // Remove 'selected' class from all
+                // If the button clicked is already selected, unselect it
+                if (btn.id === `${group}-${option}-btn`) {
+                    btn.classList.toggle('selected');
+                } else {
+                    btn.classList.remove('selected');
+                }
             });
-            
-            const selectedBtn = document.querySelector(`#${group}-${option}-btn`);
-            selectedBtn.classList.add('selected'); // Add 'selected' class to the clicked button
         }
     </script>
 </body>
