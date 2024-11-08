@@ -155,7 +155,7 @@
                 <!-- Division (Champion or Rec) -->
                 <div class="form-section">
                     <label>Division</label>
-                    <div class="button-group" id="division-group">
+                    <div class="button-group">
                         <button type="button" class="button-link" id="division-champion-btn" onclick="selectOption('division', 'Champion')">Champion</button>
                         <button type="button" class="button-link" id="division-recreational-btn" onclick="selectOption('division', 'Recreational')">Recreational</button>
                     </div>
@@ -164,7 +164,7 @@
                  <!-- Level -->
                 <div class="form-section">
                     <label>Level</label>
-                    <div class="button-group" id="level-group">
+                    <div class="button-group">
                         <button type="button" class="button-link" id="level-Tiger-btn" onclick="selectOption('level', 'Tiger')">Tiger</button>
                         <button type="button" class="button-link" id="level-SA-btn" onclick="selectOption('level', 'Special Abilities')">Special Abilities</button>
                         <button type="button" class="button-link" id="level-None-btn" onclick="selectOption('level', 'None')">None</button>
@@ -227,17 +227,29 @@
                         <option value="15-16">15-16</option>
                         <option value="17-18">17-18</option>
                         <option value="19-29">19-29</option>
+                        <option value="30-39">30-39</option>
+                        <option value="40+">40+</option>
+                        <option value="50+">50+</option>
                     </select>
                 </div>
 
-                <button type="submit" class="submit-btn">Submit</button>
+                <!-- Body Count -->
+                <div class="form-section">
+                    <label for="body-count">Body Count</label>
+                    <input type="number" id="body-count" name="body-count" placeholder="Enter body count" required>
+                </div>
+
+                <!-- Submit button -->
+                <div class="form-section">
+                    <button type="submit" id="submit-button">Submit</button>
+                </div>
             </form>
         </div>
     </div>
 
     <script>
-        // Firebase configuration and setup (use your actual config)
-        const firebaseConfig = {
+        // Firebase Configuration
+        var firebaseConfig = {
  apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
     authDomain: "ataaddring.firebaseapp.com",
     databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
@@ -248,21 +260,65 @@
     measurementId: "G-1J682H31R3"
         };
 
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
+        const database = firebase.database();
 
-        // Select option function with toggle functionality
-        function selectOption(group, option) {
-            const groupBtns = document.querySelectorAll(`#${group}-group .button-link`);
-            groupBtns.forEach(btn => {
-                // If the button clicked is already selected, unselect it
-                if (btn.id === `${group}-${option}-btn`) {
-                    btn.classList.toggle('selected');
-                } else {
-                    btn.classList.remove('selected');
-                }
-            });
+        // Function to handle selecting an option for Division, Level, or Gender
+        function selectOption(category, value) {
+            const buttons = document.querySelectorAll(`button[data-${category}]`);
+            buttons.forEach(button => button.classList.remove('selected'));
+
+            const selectedButton = document.querySelector(`#${category}-${value.toLowerCase()}-btn`);
+            selectedButton.classList.add('selected');
+            selectedButton.setAttribute(`data-${category}`, "selected");
+
+            console.log(`Selected ${category}: ${value}`); // Debugging output
         }
+
+        // Function to handle form submission
+        document.getElementById('add-ring-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form values
+            const packetNumber = document.getElementById('packet-number').value;
+            const division = document.querySelector('[data-division="selected"]')?.textContent;
+            const level = document.querySelector('[data-level="selected"]')?.textContent;
+            const gender = document.querySelector('[data-gender="selected"]')?.textContent;
+            const rankStart = document.getElementById('rank-start').value;
+            const rankEnd = document.getElementById('rank-end').value;
+            const ageGroup = document.getElementById('age-group').value;
+            const bodyCount = document.getElementById('body-count').value;
+
+            // Validate form inputs
+            if (!packetNumber || !division || !level || !gender || !bodyCount) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            // Data to be sent to Firebase
+            const ringData = {
+                packetNumber,
+                division,
+                level,
+                gender,
+                rankStart,
+                rankEnd,
+                ageGroup,
+                bodyCount
+            };
+
+            // Save data to Firebase
+            database.ref('rings').push(ringData)
+                .then(() => {
+                    alert('Ring added successfully!');
+                    document.getElementById('add-ring-form').reset();
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Error saving data to Firebase');
+                });
+        });
     </script>
 </body>
 </html>
