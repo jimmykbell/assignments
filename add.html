@@ -242,20 +242,20 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Function to handle form submission
+// Function to handle form submission
 document.getElementById('add-ring-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
     // Get form values
     const packetNumber = document.getElementById('packet-number').value;
-    const division = document.querySelector('[data-division="selected"]')?.textContent;
-    const level = document.querySelector('[data-level="selected"]')?.textContent;
-    const gender = document.querySelector('[data-gender="selected"]')?.textContent;
+    const division = document.getElementById('division').value;  // Use the dropdown value for Division
+    const level = document.getElementById('level').value;  // Use the dropdown value for Level
+    const gender = document.getElementById('gender').value;  // Use the dropdown value for Gender
     const rankStart = document.getElementById('rank-start').value;
     const rankEnd = document.getElementById('rank-end').value;
     const ageGroup = document.getElementById('age-group').value;
     const bodyCount = document.getElementById('body-count').value;
-    const ringNumber = document.getElementById('ring-number').value;  // Added this line
+    const ringNumber = document.getElementById('ring-number').value;
 
     // Validate form inputs
     if (!packetNumber || !division || !level || !gender || !bodyCount || !ringNumber) {
@@ -273,7 +273,7 @@ document.getElementById('add-ring-form').addEventListener('submit', function(e) 
         rankEnd,
         ageGroup,
         bodyCount,
-        ringNumber  // Added this to the data
+        ringNumber
     };
 
     // Save data to Firebase
