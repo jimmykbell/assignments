@@ -1,83 +1,76 @@
-* {
+/* Basic reset */
+body, html {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+/* Container for centering the form */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Form container */
+.form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
     color: #333;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+/* Form section styling */
+.form-section {
+    margin-bottom: 20px;
 }
 
-.title {
-    font-size: 2rem;
-    margin-bottom: 30px;
+/* Labels */
+.form-section label {
+    font-size: 16px;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
 }
 
-.button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+/* Input fields and selects */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-.button {
-    background-color: #3498db;
-    color: white;
-    font-size: 1.2rem;
-    padding: 15px 30px;
+/* Textarea styling */
+textarea {
+    resize: vertical;
+}
+
+/* Submit button */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: pointer;
-    width: 200px;
-    transition: background-color 0.3s;
 }
 
-.button:hover {
-    background-color: #2980b9;
-}
-
-.button:active {
-    background-color: #1abc9c;
-}
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-}
-
-.close-btn {
-    background-color: #e74c3c;
-}
-
-@media (max-width: 768px) {
-    .button-container {
-        flex-direction: column;
-    }
-
-    .button {
-        width: 100%;
-    }
+button:hover {
+    background-color: #0056b3;
 }
