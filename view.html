@@ -88,6 +88,7 @@
                 <th>Starting Rank</th>
                 <th>Ending Rank</th>
                 <th>Age Group</th>
+                <th>Gender</th> <!-- Added Gender Column -->
                 <th>Body Count</th>
                 <th>Ring Number</th>
             </tr>
@@ -100,47 +101,85 @@
     <!-- Firebase Configuration -->
     <script>
         var firebaseConfig = {
-           apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
-            authDomain: "ataaddring.firebaseapp.com",
-            databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
-            projectId: "ataaddring",
-            storageBucket: "ataaddring.firebasestorage.app",
-            messagingSenderId: "478536722943",
-            appId: "1:478536722943:web:7852ceb7032530cf3b5fca",
-            measurementId: "G-1J682H31R3"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
         };
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Function to load table data from Firebase in real-time
+        // Function to load and display table data from Firebase in real-time
         function loadTableData() {
             const tableBody = document.getElementById('table-body');
             const loadingSpinner = document.getElementById('loading');
             tableBody.innerHTML = ''; // Clear existing data
             loadingSpinner.style.display = 'block'; // Show loading spinner
 
-            // Listen for changes in the Firebase database
+            // Array to hold data to sort
+            let dataArr = [];
+
+            // Listen for data added to Firebase in real-time
             database.ref('formData').on('child_added', function(snapshot) {
                 const data = snapshot.val();
 
-                // Create a new row for the table
-                const row = document.createElement('tr');
-                row.setAttribute('id', snapshot.key); // Set ID to use for future edits or deletions
+                // Create an object with the data and key
+                const rowData = { 
+                    key: snapshot.key,
+                    packetNumber: data.packetNumber,
+                    division: data.division,
+                    notes: data.notes,
+                    startingRank: data.startingRank,
+                    endingRank: data.endingRank,
+                    ageGroup: data.ageGroup,
+                    gender: data.gender,  // Added gender to data
+                    bodyCount: data.bodyCount,
+                    ringNumber: data.ringNumber
+                };
 
-                // Loop through the data and create table cells
-                Object.keys(data).forEach(key => {
-                    const cell = document.createElement('td');
-                    cell.textContent = data[key];
-                    row.appendChild(cell);
+                dataArr.push(rowData);
+
+                // Sort the data by key (if you want to sort by a different field, modify this)
+                dataArr.sort((a, b) => a.key.localeCompare(b.key)); // Sorting by key
+
+                // Clear table and append sorted rows
+                tableBody.innerHTML = ''; // Clear the table
+                dataArr.forEach(row => {
+                    // Create a new row for the table
+                    const rowElement = document.createElement('tr');
+                    rowElement.setAttribute('id', row.key); // Set ID to use for future edits or deletions
+
+                    // Insert the data into the correct columns
+                    const columns = [
+                        row.packetNumber,
+                        row.division,
+                        row.notes,
+                        row.startingRank,
+                        row.endingRank,
+                        row.ageGroup,
+                        row.gender,  // Added gender to columns
+                        row.bodyCount,
+                        row.ringNumber
+                    ];
+
+                    columns.forEach(value => {
+                        const cell = document.createElement('td');
+                        cell.textContent = value;
+                        rowElement.appendChild(cell);
+                    });
+
+                    // Add the row to the table body
+                    tableBody.appendChild(rowElement);
                 });
-
-                // Add the row to the table body
-                tableBody.appendChild(row);
             });
 
-            // Hide the loading spinner once data is loaded
+            // Hide loading spinner once data is loaded
             database.ref('formData').once('value', function(snapshot) {
                 if (snapshot.exists()) {
                     loadingSpinner.style.display = 'none';
