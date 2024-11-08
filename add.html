@@ -52,33 +52,6 @@
             font-size: 24px;
         }
 
-        /* Button group style */
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .button-link {
-            background-color: #3498db; /* Default blue color */
-            border: none;
-            color: white;
-            font-size: 16px;
-            padding: 12px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            text-align: center;
-            width: 48%;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .button-link:hover {
-            background-color: #2980b9;
-            transform: scale(1.05); /* Slight scaling effect on hover */
-        }
-
         /* Form section styling */
         .form-section {
             margin-bottom: 20px;
@@ -152,21 +125,19 @@
                    <input type="number" id="packet-number" name="packet-number" placeholder="Enter packet number" required>
                 </div>
 
-                <!-- Division (Champion or Rec) -->
+                <!-- Division (Dropdown) -->
                 <div class="form-section">
                     <label for="division">Division</label>
                     <select id="division" name="division" required>
-                        <option value="">Select Division</option>
                         <option value="Champion">Champion</option>
                         <option value="Recreational">Recreational</option>
                     </select>
                 </div>
 
-                <!-- Level -->
+                 <!-- Level (Dropdown) -->
                 <div class="form-section">
                     <label for="level">Level</label>
                     <select id="level" name="level" required>
-                        <option value="">Select Level</option>
                         <option value="Tiger">Tiger</option>
                         <option value="Special Abilities">Special Abilities</option>
                         <option value="None">None</option>
@@ -240,6 +211,11 @@
                     <label for="body-count">Body Count</label>
                     <input type="number" id="body-count" name="body-count" placeholder="Enter body count" required>
                 </div>
+                <!-- Ring Number (New field) -->
+<div class="form-section">
+    <label for="ring-number">Ring Number</label>
+    <input type="number" id="ring-number" name="ring-number" placeholder="Enter ring number" required>
+</div>
 
                 <!-- Submit button -->
                 <div class="form-section">
@@ -252,60 +228,65 @@
     <script>
         // Firebase Configuration
         var firebaseConfig = {
-            apiKey: "AIzaSyAKBJrmSTBnX8vFnoZy7TdoTe-vZYw7zpI",
-            authDomain: "martial-arts-tournament.firebaseapp.com",
-            databaseURL: "https://martial-arts-tournament.firebaseio.com",
-            projectId: "martial-arts-tournament",
-            storageBucket: "martial-arts-tournament.appspot.com",
-            messagingSenderId: "788646597029",
-            appId: "1:788646597029:web:af44ad3b798314bf19c768"
+            apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
+            authDomain: "ataaddring.firebaseapp.com",
+            databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
+            projectId: "ataaddring",
+            storageBucket: "ataaddring.firebasestorage.app",
+            messagingSenderId: "478536722943",
+            appId: "1:478536722943:web:7852ceb7032530cf3b5fca",
+            measurementId: "G-1J682H31R3"
         };
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        var database = firebase.database();
+        const database = firebase.database();
 
         // Function to handle form submission
-        document.getElementById('add-ring-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+document.getElementById('add-ring-form').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-            // Get form values
-            const packetNumber = document.getElementById('packet-number').value;
-            const division = document.getElementById('division').value;
-            const level = document.getElementById('level').value;
-            const rankStart = document.getElementById('rank-start').value;
-            const rankEnd = document.getElementById('rank-end').value;
-            const ageGroup = document.getElementById('age-group').value;
-            const bodyCount = document.getElementById('body-count').value;
+    // Get form values
+    const packetNumber = document.getElementById('packet-number').value;
+    const division = document.querySelector('[data-division="selected"]')?.textContent;
+    const level = document.querySelector('[data-level="selected"]')?.textContent;
+    const gender = document.querySelector('[data-gender="selected"]')?.textContent;
+    const rankStart = document.getElementById('rank-start').value;
+    const rankEnd = document.getElementById('rank-end').value;
+    const ageGroup = document.getElementById('age-group').value;
+    const bodyCount = document.getElementById('body-count').value;
+    const ringNumber = document.getElementById('ring-number').value;  // Added this line
 
-            // Validate form inputs
-            if (!packetNumber || !division || !level || !bodyCount) {
-                alert('Please fill out all required fields.');
-                return;
-            }
+    // Validate form inputs
+    if (!packetNumber || !division || !level || !gender || !bodyCount || !ringNumber) {
+        alert('Please fill out all fields.');
+        return;
+    }
 
-            // Data to be sent to Firebase
-            const ringData = {
-                packetNumber,
-                division,
-                level,
-                rankStart,
-                rankEnd,
-                ageGroup,
-                bodyCount
-            };
+    // Data to be sent to Firebase
+    const ringData = {
+        packetNumber,
+        division,
+        level,
+        gender,
+        rankStart,
+        rankEnd,
+        ageGroup,
+        bodyCount,
+        ringNumber  // Added this to the data
+    };
 
-            // Save data to Firebase
-            database.ref('rings').push(ringData)
-                .then(() => {
-                    alert('Ring added successfully!');
-                    document.getElementById('add-ring-form').reset();
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert('Error saving data to Firebase');
-                });
+    // Save data to Firebase
+    database.ref('rings').push(ringData)
+        .then(() => {
+            alert('Ring added successfully!');
+            document.getElementById('add-ring-form').reset();
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Error saving data to Firebase');
         });
+});
     </script>
 </body>
 </html>
