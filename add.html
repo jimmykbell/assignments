@@ -1,153 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Firebase App (Core) -->
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-
-    <!-- Firebase Database -->
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Ring</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Your external CSS file -->
-    <style>
-        .button-link.selected {
-            background-color: #e74c3c; /* A strong red color */
-            border: 2px solid #e74c3c; /* A contrasting border */
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-        }
-
-        /* Basic reset */
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-        }
-
-        /* Center the content on the page */
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f4f7f6;
-            padding: 20px;
-        }
-
-        /* Main form container */
-        .form-container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-        }
-
-        .form-container h1 {
-            margin-bottom: 20px;
-            color: #333;
-            font-size: 24px;
-        }
-
-        /* Form section styling */
-        .form-section {
-            margin-bottom: 20px;
-        }
-
-        /* Label styling */
-        .form-section label {
-            font-size: 16px;
-            color: #333;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        /* Input fields for rank group, etc. */
-        .form-section select,
-        .form-section input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            outline: none;
-            margin-top: 8px;
-        }
-
-        .form-section select:focus,
-        .form-section input:focus {
-            border-color: #3498db;
-        }
-
-        .form-section button {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .form-section button:hover {
-            background-color: #2980b9;
-        }
-
-        /* Ensure responsiveness */
-        @media (max-width: 768px) {
-            .button-link {
-                width: 100%;
-            }
-        }
-    </style>
+    <title>Questionnaire Form</title>
+    <link rel="stylesheet" href="styles.css"> <!-- External CSS file -->
+    <!-- Firebase App (Core) -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="form-container">
-            <h1>Add Ring</h1>
-
-            <!-- Button options for viewing rings -->
-            <div class="button-group">
-                <button class="button-link" onclick="window.location.href='view-ring.html';">View Rings</button>
-                <button class="button-link" onclick="window.location.href='ring-status.html';">Ring Status</button>
-            </div>
-
-            <!-- Form for adding a ring -->
-            <form id="add-ring-form">
-                <!-- Packet number -->
+            <h1>Fill Out the Questionnaire</h1>
+            <form id="questionnaire-form">
+                <!-- Packet Number -->
                 <div class="form-section">
-                   <label for="packet-number">Packet Number:</label>
-                   <input type="number" id="packet-number" name="packet-number" placeholder="Enter packet number" required>
+                    <label for="packet-number">Packet Number:</label>
+                    <input type="number" id="packet-number" name="packet-number" required>
                 </div>
 
-                <!-- Division (Dropdown) -->
+                <!-- Division -->
                 <div class="form-section">
-                    <label for="division">Division</label>
+                    <label for="division">Division:</label>
                     <select id="division" name="division" required>
-                        <option value="Champion">Champion</option>
                         <option value="Recreational">Recreational</option>
+                        <option value="Champion">Champion</option>
                     </select>
                 </div>
 
-                 <!-- Level (Dropdown) -->
+                <!-- Notes -->
                 <div class="form-section">
-                    <label for="level">Level</label>
-                    <select id="level" name="level" required>
-                        <option value="Tiger">Tiger</option>
-                        <option value="Special Abilities">Special Abilities</option>
-                        <option value="None">None</option>
-                    </select>
+                    <label for="notes">Notes:</label>
+                    <textarea id="notes" name="notes" rows="4" required></textarea>
                 </div>
 
-                <!-- Rank Group -->
+                <!-- Starting Rank -->
                 <div class="form-section">
-                    <label for="rank-start">Starting Rank</label>
-                    <select id="rank-start" name="rank-start">
+                    <label for="starting-rank">Starting Rank:</label>
+                    <select id="starting-rank" name="starting-rank" required>
                         <option value="White">White</option>
                         <option value="Orange">Orange</option>
                         <option value="Yellow">Yellow</option>
@@ -157,19 +49,20 @@
                         <option value="Blue">Blue</option>
                         <option value="Brown">Brown</option>
                         <option value="Red">Red</option>
-                        <option value="1br">1BR</option>
+                        <option value="1BR">1BR</option>
                         <option value="1BD">1BD</option>
-                        <option value="2br">2BR</option>
-                        <option value="2bd">2BD</option>
+                        <option value="2BR">2BR</option>
+                        <option value="2BD">2BD</option>
                         <option value="3BD">3BD</option>
                         <option value="4BD">4BD</option>
                         <option value="5BD">5BD</option>
                     </select>
                 </div>
 
+                <!-- Ending Rank -->
                 <div class="form-section">
-                    <label for="rank-end">Ending Rank</label>
-                    <select id="rank-end" name="rank-end">
+                    <label for="ending-rank">Ending Rank:</label>
+                    <select id="ending-rank" name="ending-rank" required>
                         <option value="White">White</option>
                         <option value="Orange">Orange</option>
                         <option value="Yellow">Yellow</option>
@@ -179,10 +72,10 @@
                         <option value="Blue">Blue</option>
                         <option value="Brown">Brown</option>
                         <option value="Red">Red</option>
-                        <option value="1br">1BR</option>
+                        <option value="1BR">1BR</option>
                         <option value="1BD">1BD</option>
-                        <option value="2br">2BR</option>
-                        <option value="2bd">2BD</option>
+                        <option value="2BR">2BR</option>
+                        <option value="2BD">2BD</option>
                         <option value="3BD">3BD</option>
                         <option value="4BD">4BD</option>
                         <option value="5BD">5BD</option>
@@ -191,33 +84,34 @@
 
                 <!-- Age Group -->
                 <div class="form-section">
-                    <label for="age-group">Age Group</label>
-                    <select id="age-group" name="age-group">
+                    <label for="age-group">Age Group:</label>
+                    <select id="age-group" name="age-group" required>
                         <option value="8 and Under">8 and Under</option>
                         <option value="9-10">9-10</option>
                         <option value="11-12">11-12</option>
                         <option value="13-14">13-14</option>
-                        <option value="15-16">15-16</option>
-                        <option value="17-18">17-18</option>
-                        <option value="19-29">19-29</option>
+                        <option value="15-17">15-17</option>
+                        <option value="18-29">18-29</option>
                         <option value="30-39">30-39</option>
-                        <option value="40+">40+</option>
-                        <option value="50+">50+</option>
+                        <option value="40-49">40-49</option>
+                        <option value="50-59">50-59</option>
+                        <option value="60+">60+</option>
                     </select>
                 </div>
 
                 <!-- Body Count -->
                 <div class="form-section">
-                    <label for="body-count">Body Count</label>
-                    <input type="number" id="body-count" name="body-count" placeholder="Enter body count" required>
+                    <label for="body-count">Body Count:</label>
+                    <input type="number" id="body-count" name="body-count" required>
                 </div>
-                <!-- Ring Number (New field) -->
-<div class="form-section">
-    <label for="ring-number">Ring Number</label>
-    <input type="number" id="ring-number" name="ring-number" placeholder="Enter ring number" required>
-</div>
 
-                <!-- Submit button -->
+                <!-- Ring Number -->
+                <div class="form-section">
+                    <label for="ring-number">Ring Number:</label>
+                    <input type="number" id="ring-number" name="ring-number" required>
+                </div>
+
+                <!-- Submit Button -->
                 <div class="form-section">
                     <button type="submit" id="submit-button">Submit</button>
                 </div>
@@ -242,51 +136,49 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-// Function to handle form submission
-document.getElementById('add-ring-form').addEventListener('submit', function(e) {
-    e.preventDefault();
+        // Handle form submission
+        document.getElementById('questionnaire-form').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-    // Get form values
-    const packetNumber = document.getElementById('packet-number').value;
-    const division = document.getElementById('division').value;  // Use the dropdown value for Division
-    const level = document.getElementById('level').value;  // Use the dropdown value for Level
-    const gender = document.getElementById('gender').value;  // Use the dropdown value for Gender
-    const rankStart = document.getElementById('rank-start').value;
-    const rankEnd = document.getElementById('rank-end').value;
-    const ageGroup = document.getElementById('age-group').value;
-    const bodyCount = document.getElementById('body-count').value;
-    const ringNumber = document.getElementById('ring-number').value;
+            // Get form values
+            const packetNumber = document.getElementById('packet-number').value;
+            const division = document.getElementById('division').value;
+            const notes = document.getElementById('notes').value;
+            const startingRank = document.getElementById('starting-rank').value;
+            const endingRank = document.getElementById('ending-rank').value;
+            const ageGroup = document.getElementById('age-group').value;
+            const bodyCount = document.getElementById('body-count').value;
+            const ringNumber = document.getElementById('ring-number').value;
 
-    // Validate form inputs
-    if (!packetNumber || !division || !level || !gender || !bodyCount || !ringNumber) {
-        alert('Please fill out all fields.');
-        return;
-    }
+            // Validate form inputs
+            if (!packetNumber || !division || !notes || !startingRank || !endingRank || !ageGroup || !bodyCount || !ringNumber) {
+                alert('Please fill out all fields.');
+                return;
+            }
 
-    // Data to be sent to Firebase
-    const ringData = {
-        packetNumber,
-        division,
-        level,
-        gender,
-        rankStart,
-        rankEnd,
-        ageGroup,
-        bodyCount,
-        ringNumber
-    };
+            // Data to send to Firebase
+            const formData = {
+                packetNumber,
+                division,
+                notes,
+                startingRank,
+                endingRank,
+                ageGroup,
+                bodyCount,
+                ringNumber
+            };
 
-    // Save data to Firebase
-    database.ref('rings').push(ringData)
-        .then(() => {
-            alert('Ring added successfully!');
-            document.getElementById('add-ring-form').reset();
-        })
-        .catch(error => {
-            console.error(error);
-            alert('Error saving data to Firebase');
+            // Save data to Firebase
+            database.ref('formData').push(formData)
+                .then(() => {
+                    alert('Form submitted successfully!');
+                    document.getElementById('questionnaire-form').reset();
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Error saving data to Firebase');
+                });
         });
-});
     </script>
 </body>
 </html>
