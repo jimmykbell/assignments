@@ -165,9 +165,9 @@
                 <div class="form-section">
                     <label>Level</label>
                     <div class="button-group">
-                        <button type="button" class="button-link" id="level-TT" onclick="selectOption('level', 'Tiger')">Tiger</button>
-                        <button type="button" class="button-link" id="level-SA" onclick="selectOption('level', 'Special Abilities')">Special Abilities</button>
-                        <button type="button" class="button-link" id="level-None" onclick="selectOption('level', 'Neither')">Neither</button>
+                        <button type="button" class="button-link" id="level-Tiger-btn" onclick="selectOption('level', 'Tiger')">Tiger</button>
+                        <button type="button" class="button-link" id="level-SA-btn" onclick="selectOption('level', 'Special Abilities')">Special Abilities</button>
+                        <button type="button" class="button-link" id="level-None-btn" onclick="selectOption('level', 'None')">None</button>
                     </div>
                 </div>
 
@@ -224,10 +224,11 @@
                         <option value="9-10">9-10</option>
                         <option value="11-12">11-12</option>
                         <option value="13-14">13-14</option>
-                        <option value="15-17">15-17</option>
-                        <option value="18-29">18-29</option>
+                        <option value="15-16">15-16</option>
+                        <option value="17-18">17-18</option>
+                        <option value="19-29">19-29</option>
                         <option value="30-39">30-39</option>
-                        <option value="40-49">40-49</option>
+                        <option value="40+">40+</option>
                         <option value="50+">50+</option>
                     </select>
                 </div>
@@ -249,7 +250,7 @@
     <script>
         // Initialize Firebase
         const firebaseConfig = {
-   apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
+ apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
     authDomain: "ataaddring.firebaseapp.com",
     databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
     projectId: "ataaddring",
