@@ -154,21 +154,23 @@
 
                 <!-- Division (Champion or Rec) -->
                 <div class="form-section">
-                    <label>Division</label>
-                    <div class="button-group">
-                        <button type="button" class="button-link" id="division-champion-btn" onclick="selectOption('division', 'Champion')">Champion</button>
-                        <button type="button" class="button-link" id="division-recreational-btn" onclick="selectOption('division', 'Recreational')">Recreational</button>
-                    </div>
+                    <label for="division">Division</label>
+                    <select id="division" name="division" required>
+                        <option value="">Select Division</option>
+                        <option value="Champion">Champion</option>
+                        <option value="Recreational">Recreational</option>
+                    </select>
                 </div>
 
-                 <!-- Level -->
+                <!-- Level -->
                 <div class="form-section">
-                    <label>Level</label>
-                    <div class="button-group">
-                        <button type="button" class="button-link" id="level-Tiger-btn" onclick="selectOption('level', 'Tiger')">Tiger</button>
-                        <button type="button" class="button-link" id="level-SA-btn" onclick="selectOption('level', 'Special Abilities')">Special Abilities</button>
-                        <button type="button" class="button-link" id="level-None-btn" onclick="selectOption('level', 'None')">None</button>
-                    </div>
+                    <label for="level">Level</label>
+                    <select id="level" name="level" required>
+                        <option value="">Select Level</option>
+                        <option value="Tiger">Tiger</option>
+                        <option value="Special Abilities">Special Abilities</option>
+                        <option value="None">None</option>
+                    </select>
                 </div>
 
                 <!-- Rank Group -->
@@ -250,31 +252,18 @@
     <script>
         // Firebase Configuration
         var firebaseConfig = {
- apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
-    authDomain: "ataaddring.firebaseapp.com",
-    databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
-    projectId: "ataaddring",
-    storageBucket: "ataaddring.firebasestorage.app",
-    messagingSenderId: "478536722943",
-    appId: "1:478536722943:web:7852ceb7032530cf3b5fca",
-    measurementId: "G-1J682H31R3"
+            apiKey: "AIzaSyAKBJrmSTBnX8vFnoZy7TdoTe-vZYw7zpI",
+            authDomain: "martial-arts-tournament.firebaseapp.com",
+            databaseURL: "https://martial-arts-tournament.firebaseio.com",
+            projectId: "martial-arts-tournament",
+            storageBucket: "martial-arts-tournament.appspot.com",
+            messagingSenderId: "788646597029",
+            appId: "1:788646597029:web:af44ad3b798314bf19c768"
         };
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // Function to handle selecting an option for Division, Level, or Gender
-        function selectOption(category, value) {
-            const buttons = document.querySelectorAll(`button[data-${category}]`);
-            buttons.forEach(button => button.classList.remove('selected'));
-
-            const selectedButton = document.querySelector(`#${category}-${value.toLowerCase()}-btn`);
-            selectedButton.classList.add('selected');
-            selectedButton.setAttribute(`data-${category}`, "selected");
-
-            console.log(`Selected ${category}: ${value}`); // Debugging output
-        }
+        var database = firebase.database();
 
         // Function to handle form submission
         document.getElementById('add-ring-form').addEventListener('submit', function(e) {
@@ -282,17 +271,16 @@
 
             // Get form values
             const packetNumber = document.getElementById('packet-number').value;
-            const division = document.querySelector('[data-division="selected"]')?.textContent;
-            const level = document.querySelector('[data-level="selected"]')?.textContent;
-            const gender = document.querySelector('[data-gender="selected"]')?.textContent;
+            const division = document.getElementById('division').value;
+            const level = document.getElementById('level').value;
             const rankStart = document.getElementById('rank-start').value;
             const rankEnd = document.getElementById('rank-end').value;
             const ageGroup = document.getElementById('age-group').value;
             const bodyCount = document.getElementById('body-count').value;
 
             // Validate form inputs
-            if (!packetNumber || !division || !level || !gender || !bodyCount) {
-                alert('Please fill out all fields.');
+            if (!packetNumber || !division || !level || !bodyCount) {
+                alert('Please fill out all required fields.');
                 return;
             }
 
@@ -301,7 +289,6 @@
                 packetNumber,
                 division,
                 level,
-                gender,
                 rankStart,
                 rankEnd,
                 ageGroup,
