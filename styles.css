@@ -1,92 +1,92 @@
-/* Basic reset */
-body, html {
+/* General reset */
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+    box-sizing: border-box;
 }
 
-/* Container for centering the form */
+/* Container to center the form on the page */
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    overflow: auto;
 }
 
-/* Form container */
+/* Form container styling */
 .form-container {
-    background-color: #fff;
-    padding: 30px;
+    background-color: #ffffff;
+    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 600px;
+    max-width: 400px;
 }
 
-/* Heading */
+/* Form title */
 h1 {
+    font-size: 24px;
     text-align: center;
-    margin-bottom: 30px;
-    color: #333;
+    margin-bottom: 20px;
+    color: #333333;
 }
 
-/* Form section styling */
+/* Styling each form section */
 .form-section {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 /* Labels */
-.form-section label {
-    font-size: 16px;
-    color: #333;
+label {
     display: block;
-    margin-bottom: 8px;
-}
-
-/* Input fields and selects */
-input, select, textarea {
-    width: 100%;
-    padding: 12px;
     font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
+    margin-bottom: 5px;
+    color: #333333;
 }
 
-/* Textarea styling */
+/* Input fields */
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+/* Textarea */
 textarea {
-    resize: vertical;
+    resize: none;
 }
 
 /* Submit button */
-button {
+button[type="submit"] {
     width: 100%;
     padding: 12px;
     font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
     background-color: #007bff;
-    color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* Styling for the delete button */
-.delete-btn {
-    background-color: #e74c3c;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
+/* Mobile view adjustments */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 15px;
+    }
 
-.delete-btn:hover {
-    background-color: #c0392b;
+    h1 {
+        font-size: 20px;
+    }
 }
