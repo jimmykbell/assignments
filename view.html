@@ -105,6 +105,7 @@
                 <th>Gender</th> <!-- Added Gender Column -->
                 <th>Body Count</th>
                 <th>Ring Number</th>
+                <th>Timestamp</th> <!-- Added Timestamp Column -->
                 <th>Actions</th>
             </tr>
         </thead>
@@ -158,7 +159,8 @@
                     ageGroup: data.ageGroup,
                     gender: data.gender || "N/A",  // Default to "N/A" if gender is missing
                     bodyCount: data.bodyCount,
-                    ringNumber: data.ringNumber
+                    ringNumber: data.ringNumber,
+                    timestamp: data.timestamp || "Not Available" // Add timestamp
                 };
 
                 // Add the row to the array
@@ -181,7 +183,8 @@
                         row.ageGroup,
                         row.gender,  // Added gender to columns
                         row.bodyCount,
-                        row.ringNumber
+                        row.ringNumber,
+                        row.timestamp // Add timestamp to columns
                     ];
 
                     columns.forEach(value => {
