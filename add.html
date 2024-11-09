@@ -98,7 +98,15 @@
                         <option value="60+">60+</option>
                     </select>
                 </div>
-
+                
+<!-- Gender -->
+<div class="form-section">
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+</div>
                 <!-- Body Count -->
                 <div class="form-section">
                     <label for="body-count">Body Count:</label>
@@ -147,6 +155,7 @@
             const startingRank = document.getElementById('starting-rank').value;
             const endingRank = document.getElementById('ending-rank').value;
             const ageGroup = document.getElementById('age-group').value;
+            const gender = document.getElementById('gender').value;
             const bodyCount = document.getElementById('body-count').value;
             const ringNumber = document.getElementById('ring-number').value;
 
@@ -164,6 +173,7 @@
                 startingRank,
                 endingRank,
                 ageGroup,
+                gender, 
                 bodyCount,
                 ringNumber
             };
