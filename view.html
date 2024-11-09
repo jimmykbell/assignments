@@ -70,6 +70,20 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Button styling */
+        .delete-btn {
+            padding: 5px 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
     </style>
 </head>
 <body>
@@ -91,6 +105,7 @@
                 <th>Gender</th> <!-- Added Gender Column -->
                 <th>Body Count</th>
                 <th>Ring Number</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody id="table-body">
@@ -101,7 +116,7 @@
     <!-- Firebase Configuration -->
     <script>
         var firebaseConfig = {
-apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
+            apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
             authDomain: "ataaddring.firebaseapp.com",
             databaseURL: "https://ataaddring-default-rtdb.firebaseio.com",
             projectId: "ataaddring",
@@ -115,111 +130,106 @@ apiKey: "AIzaSyAKBJrmSTBnZfzj_abxCA1CIN_nxzY3F9g",
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-       // Function to load and display table data from Firebase in real-time
-function loadTableData() {
-    const tableBody = document.getElementById('table-body');
-    const loadingSpinner = document.getElementById('loading');
-    tableBody.innerHTML = ''; // Clear existing data
-    loadingSpinner.style.display = 'block'; // Show loading spinner
+        // Function to load and display table data from Firebase in real-time
+        function loadTableData() {
+            const tableBody = document.getElementById('table-body');
+            const loadingSpinner = document.getElementById('loading');
+            tableBody.innerHTML = ''; // Clear existing data
+            loadingSpinner.style.display = 'block'; // Show loading spinner
 
-    // Array to hold data to sort
-    let dataArr = [];
+            // Array to hold data to sort
+            let dataArr = [];
 
-    // Listen for data added to Firebase in real-time
-    database.ref('formData').on('child_added', function(snapshot) {
-        const data = snapshot.val();
+            // Listen for data added to Firebase in real-time
+            database.ref('formData').on('child_added', function(snapshot) {
+                const data = snapshot.val();
 
-        // Log the data for debugging to check if 'gender' is present
-        console.log("Retrieved data:", data);
+                // Log the data for debugging to check if 'gender' is present
+                console.log("Retrieved data:", data);
 
-        // Create an object with the data and key
-        const rowData = { 
-            key: snapshot.key,
-            packetNumber: data.packetNumber,
-            division: data.division,
-            notes: data.notes,
-            startingRank: data.startingRank,
-            endingRank: data.endingRank,
-            ageGroup: data.ageGroup,
-            gender: data.gender || "N/A",  // Default to "N/A" if gender is missing
-            bodyCount: data.bodyCount,
-            ringNumber: data.ringNumber
-        };
+                // Create an object with the data and key
+                const rowData = { 
+                    key: snapshot.key,
+                    packetNumber: data.packetNumber,
+                    division: data.division,
+                    notes: data.notes,
+                    startingRank: data.startingRank,
+                    endingRank: data.endingRank,
+                    ageGroup: data.ageGroup,
+                    gender: data.gender || "N/A",  // Default to "N/A" if gender is missing
+                    bodyCount: data.bodyCount,
+                    ringNumber: data.ringNumber
+                };
 
-        // Add the row to the array
-        dataArr.push(rowData);
+                // Add the row to the array
+                dataArr.push(rowData);
 
-        // Sort the data by key (if you want to sort by a different field, modify this)
-        dataArr.sort((a, b) => a.key.localeCompare(b.key)); // Sorting by key
+                // Clear table and append sorted rows
+                tableBody.innerHTML = ''; // Clear the table
+                dataArr.forEach(row => {
+                    // Create a new row for the table
+                    const rowElement = document.createElement('tr');
+                    rowElement.setAttribute('id', row.key); // Set ID to use for future edits or deletions
 
-        // Clear table and append sorted rows
-        tableBody.innerHTML = ''; // Clear the table
-        dataArr.forEach(row => {
-            // Create a new row for the table
-            const rowElement = document.createElement('tr');
-            rowElement.setAttribute('id', row.key); // Set ID to use for future edits or deletions
+                    // Insert the data into the correct columns
+                    const columns = [
+                        row.packetNumber,
+                        row.division,
+                        row.notes,
+                        row.startingRank,
+                        row.endingRank,
+                        row.ageGroup,
+                        row.gender,  // Added gender to columns
+                        row.bodyCount,
+                        row.ringNumber
+                    ];
 
-            // Insert the data into the correct columns
-            const columns = [
-                row.packetNumber,
-                row.division,
-                row.notes,
-                row.startingRank,
-                row.endingRank,
-                row.ageGroup,
-                row.gender,  // Added gender to columns
-                row.bodyCount,
-                row.ringNumber
-            ];
+                    columns.forEach(value => {
+                        const cell = document.createElement('td');
+                        cell.textContent = value;
+                        rowElement.appendChild(cell);
+                    });
 
-            columns.forEach(value => {
-                const cell = document.createElement('td');
-                cell.textContent = value;
-                rowElement.appendChild(cell);
+                    // Add the delete button in the last column
+                    const deleteButtonCell = document.createElement('td');
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.classList.add('delete-btn');
+                    deleteButton.setAttribute('data-key', row.key); // Set data-key to identify the row
+                    deleteButton.onclick = function() {
+                        deleteRow(row.key); // Call the delete function
+                    };
+                    deleteButtonCell.appendChild(deleteButton);
+                    rowElement.appendChild(deleteButtonCell);
+
+                    // Add the row to the table body
+                    tableBody.appendChild(rowElement);
+                });
+
+                // Hide loading spinner once data is loaded
+                loadingSpinner.style.display = 'none';
             });
-
-            // Add the delete button in the last column
-            const deleteButtonCell = document.createElement('td');
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.classList.add('delete-btn');
-            deleteButton.setAttribute('data-key', row.key); // Set data-key to identify the row
-            deleteButton.onclick = function() {
-                deleteRow(row.key); // Call the delete function
-            };
-            deleteButtonCell.appendChild(deleteButton);
-            rowElement.appendChild(deleteButtonCell);
-
-            // Add the row to the table body
-            tableBody.appendChild(rowElement);
-        });
-    });
-
-    // Hide loading spinner once data is loaded
-    database.ref('formData').once('value', function(snapshot) {
-        if (snapshot.exists()) {
-            loadingSpinner.style.display = 'none';
         }
-    });
-}
 
-// Function to delete a row from the Firebase database
-function deleteRow(key) {
-    // Show a confirmation before deletion
-    if (confirm('Are you sure you want to delete this entry?')) {
-        // Remove the entry from Firebase
-        database.ref('formData/' + key).remove()
-            .then(() => {
-                alert('Entry deleted successfully!');
-                document.getElementById(key).remove(); // Remove the row from the table
-            })
-            .catch(error => {
-                console.error(error);
-                alert('Error deleting data from Firebase');
-            });
-    }
-}
+        // Function to delete a row from the Firebase database
+        function deleteRow(key) {
+            // Show a confirmation before deletion
+            if (confirm('Are you sure you want to delete this entry?')) {
+                // Remove the entry from Firebase
+                database.ref('formData/' + key).remove()
+                    .then(() => {
+                        alert('Entry deleted successfully!');
+                        document.getElementById(key).remove(); // Remove the row from the table
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert('Error deleting data from Firebase');
+                    });
+            }
+        }
 
+        // Load the table data when the page loads
+        window.onload = loadTableData;
     </script>
 
 </body>
