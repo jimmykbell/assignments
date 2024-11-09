@@ -159,6 +159,9 @@
             const bodyCount = document.getElementById('body-count').value;
             const ringNumber = document.getElementById('ring-number').value;
 
+                // Get the current timestamp
+    const timestamp = Date.now();
+
             // Validate form inputs
             if (!packetNumber || !division || !notes || !startingRank || !endingRank || !ageGroup || !bodyCount || !ringNumber) {
                 alert('Please fill out all fields.');
@@ -175,7 +178,8 @@
                 ageGroup,
                 gender, 
                 bodyCount,
-                ringNumber
+                ringNumber,
+                timestamp
             };
 
             // Save data to Firebase
