@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Real-Time Data Table</title>
+    <title>Tournament Helper</title>
 
     <!-- Firebase App (Core) -->
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
@@ -84,11 +84,36 @@
         .delete-btn:hover {
             background-color: #c0392b;
         }
+
+         .button-link {
+    display: inline-block;
+    padding: 12px 24px;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .button-link:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .button-link:active {
+    background-color: #003a75;
+    transform: translateY(1px);
+  }
     </style>
 </head>
 <body>
 
-    <h1>Real-Time Data from Firebase</h1>
+    <h1>Tournament Helper</h1>
+    <center><a href="https://example.com" class="button-link">New Ring</a><a href="https://example.com" class="button-link">View Rings</a></center>
 
     <div id="loading" class="spinner"></div>
 
