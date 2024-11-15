@@ -3,54 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stylish Buttons</title>
+    <title>Clean Buttons</title>
     <style>
         body {
             margin: 0;
             padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
         }
 
-        .button-container {
+        .container {
+            width: 350px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
-        .button-container a {
-            display: inline-block;
-            margin: 10px;
-            padding: 15px 30px;
+        .container h1 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: bold;
             color: #ffffff;
-            background: linear-gradient(135deg, #ff512f, #dd2476);
+            background-color: #007BFF;
             border: none;
-            border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        .button-container a:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        .button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
         }
 
-        .button-container a:active {
-            transform: scale(1.05);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        .button:active {
+            background-color: #003f7f;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="button-container">
-        <a href="#">Button 1</a>
-        <a href="#">Button 2</a>
-        <a href="#">Button 3</a>
+    <div class="container">
+        <h1>Select an Option</h1>
+        <a href="#" class="button">Button 1</a>
+        <a href="#" class="button">Button 2</a>
+        <a href="#" class="button">Button 3</a>
     </div>
 </body>
 </html>
