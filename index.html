@@ -3,19 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Helper</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Stylish Buttons</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .button-container a {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffffff;
+            background: linear-gradient(135deg, #ff512f, #dd2476);
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .button-container a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .button-container a:active {
+            transform: scale(1.05);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">Tournament Helper</h1>
-        
-<div class="button-container">
-    <button class="button" id="add-ring-btn" onclick="window.location.href='add.html';">Add Ring</button>
-    <button class="button" id="view-ring-btn">View Ring</button>
-    <button class="button" id="ring-status-btn" onclick="window.location.href='https://jimmykbell.github.io/Ringapp/';">Ring Status</button>
-</div>
-
+    <div class="button-container">
+        <a href="#">Button 1</a>
+        <a href="#">Button 2</a>
+        <a href="#">Button 3</a>
     </div>
 </body>
 </html>
